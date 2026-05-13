@@ -5,7 +5,7 @@ import {
   Clock, Star, MapPin, HardHat, Rocket, 
   ChevronRight, Menu, X, CheckCircle2, 
   AirVent, Droplets, Laptop, Building2,
-  AlertTriangle, GraduationCap, Handshake
+  AlertTriangle, GraduationCap, Users
 } from 'lucide-react';
 
 // --- Components ---
@@ -236,7 +236,7 @@ export default function HavenLanding() {
           </div>
         </div>
         <div className="p-10 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10">
-          <Handshake className="text-cyan-400 w-12 h-12 mb-6" />
+          <Users className="text-cyan-400 w-12 h-12 mb-6" />
           <h3 className="text-2xl font-bold text-white mb-4">Brand Partnership Vision</h3>
           <p className="text-slate-400 mb-6">Future integrations with Samsung, LG, and Whirlpool for authorized appliance servicing and parts ecosystem across India.</p>
           <div className="flex gap-6 grayscale opacity-30">
