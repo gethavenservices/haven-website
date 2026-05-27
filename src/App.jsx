@@ -1,299 +1,262 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Wrench, Zap, Hammer, Paintbrush, ShieldCheck, 
-  Clock, Star, MapPin, HardHat, Rocket, 
-  ChevronRight, Menu, X, CheckCircle2, 
-  AirVent, Droplets, Laptop, Building2,
-  AlertTriangle, GraduationCap, Users
-} from 'lucide-react';
+import React from 'react';
+import { ArrowRight } from 'lucide-react';
 
-// --- Components ---
+const LogoIcon = ({ className }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 256 256" 
+    fill="currentColor" 
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M 128.005 191.173 C 128.448 156.208 156.93 128 192 128 L 192 64 L 128 64 C 128 99.346 99.346 128 64 128 L 64 192 L 128 192 Z M 192 256 L 64 256 C 28.654 256 0 227.346 0 192 L 0 64 L 64 64 L 64 0 L 192 0 C 227.346 0 256 28.654 256 64 L 256 192 L 192 192 Z" />
+  </svg>
+);
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const heroBrands = [
+  { name: 'Stripe', style: { fontFamily: 'Georgia, serif', fontWeight: 700, letterSpacing: '-0.02em', fontSize: '15px' } },
+  { name: 'Coinbase', style: { fontFamily: 'Arial, sans-serif', fontWeight: 900, letterSpacing: '0.08em', fontSize: '13px', textTransform: 'uppercase' as const } },
+  { name: 'Uniswap', style: { fontFamily: '"Trebuchet MS", sans-serif', fontWeight: 600, letterSpacing: '0.01em', fontSize: '15px', fontStyle: 'italic' } },
+  { name: 'Aave', style: { fontFamily: '"Courier New", monospace', fontWeight: 700, letterSpacing: '0.12em', fontSize: '13px', textTransform: 'uppercase' as const } },
+  { name: 'Compound', style: { fontFamily: 'Palatino, "Book Antiqua", serif', fontWeight: 400, letterSpacing: '-0.01em', fontSize: '16px' } },
+  { name: 'MakerDAO', style: { fontFamily: 'Impact, "Arial Narrow", sans-serif', fontWeight: 400, letterSpacing: '0.04em', fontSize: '14px' } },
+  { name: 'Chainlink', style: { fontFamily: 'Verdana, sans-serif', fontWeight: 700, letterSpacing: '-0.03em', fontSize: '13px' } },
+];
 
+const backerBrands = [
+  { name: 'Fundamental Labs', style: { fontFamily: '"Times New Roman", serif', fontWeight: 400, letterSpacing: '0.02em', fontSize: '14px' } },
+  { name: 'KUCOIN', style: { fontFamily: '"Arial Black", sans-serif', fontWeight: 900, letterSpacing: '0.08em', fontSize: '16px' } },
+  { name: 'NGC', style: { fontFamily: 'Impact, sans-serif', fontWeight: 700, letterSpacing: '0.05em', fontSize: '18px' } },
+  { name: 'NxGen', style: { fontFamily: 'Georgia, serif', fontWeight: 600, letterSpacing: '-0.02em', fontSize: '17px' } },
+  { name: 'Matter Labs', style: { fontFamily: 'Helvetica, sans-serif', fontWeight: 700, letterSpacing: '-0.01em', fontSize: '15px' } },
+  { name: 'DEXTools', style: { fontFamily: 'Verdana, sans-serif', fontWeight: 700, letterSpacing: '0.06em', fontSize: '14px', textTransform: 'uppercase' as const } },
+  { name: 'NGRAVE', style: { fontFamily: '"Courier New", monospace', fontWeight: 700, letterSpacing: '0.18em', fontSize: '14px' } },
+  { name: 'Polychain', style: { fontFamily: 'Palatino, serif', fontWeight: 500, letterSpacing: '0.03em', fontSize: '15px' } },
+];
+
+export default function App() {
   return (
-    <nav className="fixed top-0 w-full z-50 border-b border-white/10 bg-black/60 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
+    <main className="flex flex-col bg-[#F5F5F5] min-h-screen">
+      
+      {/* 1. Navbar & 2. Hero Section Wrapper */}
+      <div className="h-screen flex flex-col overflow-hidden w-full max-w-[88rem] mx-auto relative">
+        
+        {/* Navbar */}
+        <nav className="absolute top-0 left-0 right-0 z-20 px-6 py-5 flex items-center justify-between">
+          <div className="flex items-center gap-3 cursor-pointer">
+            <LogoIcon className="w-7 h-7 text-black" />
+            <span className="text-2xl font-medium tracking-tight text-black">Halo</span>
           </div>
-          <span className="text-white font-bold tracking-tighter text-xl">HAVEN</span>
-        </div>
+          
+          <div className="hidden md:flex items-center gap-8 text-base text-gray-700 font-medium">
+            <a href="#network" className="hover:text-black transition-colors duration-200">Network</a>
+            <a href="#ecosystem" className="hover:text-black transition-colors duration-200">Ecosystem</a>
+            <a href="#rewards" className="hover:text-black transition-colors duration-200">Rewards</a>
+            <a href="#help" className="hover:text-black transition-colors duration-200">Help</a>
+            <a href="#news" className="hover:text-black transition-colors duration-200">News</a>
+          </div>
 
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
-          <a href="#services" className="hover:text-cyan-400 transition-colors">Services</a>
-          <a href="#subscriptions" className="hover:text-cyan-400 transition-colors">Maintenance</a>
-          <a href="#vision" className="hover:text-cyan-400 transition-colors">Our Vision</a>
-          <button className="bg-white text-black px-5 py-2 rounded-full font-semibold hover:bg-cyan-400 transition-all">
-            Join Waitlist
+          <button className="bg-black text-white text-base font-medium px-7 py-2.5 rounded-full hover:bg-gray-800 transition-colors duration-200">
+            Open Wallet
           </button>
-        </div>
+        </nav>
 
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X /> : <Menu />}
-        </button>
+        {/* Hero Content */}
+        <section className="flex-1 px-6 pt-20 pb-6 flex items-end w-full">
+          <div 
+            className="relative w-full rounded-2xl overflow-hidden" 
+            style={{ height: 'calc(100vh - 96px)' }}
+          >
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline 
+              className="object-cover absolute inset-0 w-full h-full"
+              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_161253_c72b1869-400f-45ed-ac0c-52f68c2ed5bd.mp4"
+            />
+            
+            <div className="relative z-10 flex flex-col items-start justify-start h-full p-12 pt-36">
+              <h1 
+                className="text-black text-5xl md:text-6xl font-medium leading-tight max-w-xl mb-4"
+                style={{ letterSpacing: '-0.04em' }}
+              >
+                Your Wealth<br />Works
+              </h1>
+              <p 
+                className="text-black/70 text-base md:text-lg max-w-md mb-8 leading-relaxed"
+                style={{ fontFamily: "'Inter', ui-sans-serif, system-ui, sans-serif" }}
+              >
+                An automated, reward-powered digital dollar built for native passive earnings and effortless connection into DeFi.
+              </p>
+              
+              <button className="inline-flex items-center gap-3 bg-black text-white text-base md:text-lg font-medium pl-8 pr-2 py-2 rounded-full hover:bg-gray-800 transition-colors duration-200 group">
+                Join us
+                <div className="bg-white rounded-full p-2">
+                  <ArrowRight className="w-5 h-5 text-black" />
+                </div>
+              </button>
+
+              {/* Hero Marquee */}
+              <div className="mt-24 w-full max-w-md overflow-hidden mask-fade-edges">
+                <div className="marquee-track">
+                  {[...heroBrands, ...heroBrands].map((brand, idx) => (
+                    <span 
+                      key={idx} 
+                      className="mx-7 shrink-0 text-black/60 whitespace-nowrap"
+                      style={brand.style}
+                    >
+                      {brand.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-20 left-0 w-full bg-black border-b border-white/10 p-6 flex flex-col gap-4 md:hidden"
-          >
-            <a href="#services" className="text-lg text-white">Services</a>
-            <a href="#subscriptions" className="text-lg text-white">Maintenance</a>
-            <button className="bg-cyan-500 text-white p-4 rounded-xl font-bold">Join Waitlist</button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
-  );
-};
-
-const ServiceCard = ({ title, icon: Icon, desc }) => (
-  <motion.div 
-    whileHover={{ y: -5 }}
-    className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/50 transition-all group"
-  >
-    <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-4 group-hover:bg-cyan-500 transition-colors">
-      <Icon className="text-cyan-400 group-hover:text-black w-6 h-6" />
-    </div>
-    <h3 className="text-white font-semibold text-lg mb-2">{title}</h3>
-    <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
-  </motion.div>
-);
-
-const FeatureItem = ({ title, desc, icon: Icon }) => (
-  <div className="flex gap-4 p-4">
-    <div className="shrink-0">
-      <Icon className="text-cyan-400 w-6 h-6" />
-    </div>
-    <div>
-      <h4 className="text-white font-medium mb-1">{title}</h4>
-      <p className="text-slate-500 text-sm">{desc}</p>
-    </div>
-  </div>
-);
-
-// --- Main Page ---
-
-export default function HavenLanding() {
-  return (
-    <div className="bg-black min-h-screen text-slate-200 selection:bg-cyan-500/30 font-sans">
-      <Navbar />
-
-      {/* Hero Section */}
-      <section className="relative pt-40 pb-20 px-6 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-cyan-500/10 blur-[120px] rounded-full" />
-        
-        <div className="max-w-7xl mx-auto text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-400/10 border border-cyan-400/20 rounded-full">
-              Hyperlocal • Reliable • Tech-Enabled
-            </span>
-            <h1 className="text-5xl md:text-8xl font-extrabold text-white tracking-tight mb-8">
-              Haven — India’s Trusted <br /> 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
-                Skilled-Service Ecosystem
-              </span>
-            </h1>
-            <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10">
-              Connecting households with verified professionals through a futuristic, 
-              subscription-driven maintenance infrastructure.
-            </p>
-            
-            <div className="flex flex-col md:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-cyan-400 transition-all flex items-center justify-center gap-2">
-                Join Waitlist <ChevronRight size={18} />
-              </button>
-              <button className="px-8 py-4 bg-white/5 border border-white/10 rounded-full font-bold hover:bg-white/10 transition-all">
-                Explore Services
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Services Grid */}
-      <section id="services" className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-4">On-Demand Expertise</h2>
-          <p className="text-slate-400">Everything your home needs, one click away.</p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <ServiceCard icon={Zap} title="Electrical" desc="Verified electricians for installations, wiring, and safety audits." />
-          <ServiceCard icon={Droplets} title="Plumbing" desc="Leak detection, pipe repairs, and high-end fixture installs." />
-          <ServiceCard icon={Hammer} title="Carpentry" desc="Custom furniture repair and structural woodwork expertise." />
-          <ServiceCard icon={Paintbrush} title="Painting" desc="Interior, exterior, and specialized textured wall finishes." />
-          <ServiceCard icon={Building2} title="Cleaning" desc="Deep home sanitization and commercial janitorial services." />
-          <ServiceCard icon={AirVent} title="AC & HVAC" desc="Precision servicing for split, window, and central cooling." />
-          <ServiceCard icon={Laptop} title="Appliance Repair" desc="Smart home, RO, and washing machine maintenance." />
-          <ServiceCard icon={ShieldCheck} title="Safety Audit" desc="Comprehensive structural and fire safety home checks." />
-        </div>
-      </section>
-
-      {/* Why Haven - Glassmorphism */}
-      <section className="py-24 bg-white/[0.02] border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-4xl font-bold text-white mb-8">Why trust Haven?</h2>
-            <div className="grid grid-cols-1 gap-4">
-              <FeatureItem icon={ShieldCheck} title="Verified Professionals" desc="Rigorous 5-step background checks and skill testing." />
-              <FeatureItem icon={Clock} title="Hyperlocal Quick Response" desc="Service reaches you in under 60 minutes for emergencies." />
-              <FeatureItem icon={Star} title="Transparent Pricing" desc="No hidden costs. Upfront quotes via our smart pricing engine." />
-              <FeatureItem icon={MapPin} title="Local Empowerment" desc="Upskilling local talent to create a sustainable workforce." />
-            </div>
-          </div>
-          <div className="relative">
-            <div className="aspect-square rounded-3xl bg-gradient-to-br from-cyan-500/20 to-transparent border border-white/10 p-8 flex items-center justify-center">
-               <div className="text-center">
-                  <motion.div 
-                    animate={{ scale: [1, 1.05, 1] }} 
-                    transition={{ repeat: Infinity, duration: 4 }}
-                    className="w-48 h-48 rounded-full border-4 border-cyan-500/30 flex items-center justify-center"
-                  >
-                    <div className="w-32 h-32 rounded-full bg-cyan-500 flex items-center justify-center shadow-[0_0_50px_rgba(6,182,212,0.5)]">
-                      <ShieldCheck className="text-black w-16 h-16" />
-                    </div>
-                  </motion.div>
-                  <p className="mt-8 font-mono text-cyan-400">ENCRYPTED TRUST PROTOCOL v2.0</p>
-               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Subscription Section */}
-      <section id="subscriptions" className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-white mb-4">Subscription Ecosystem</h2>
-          <p className="text-slate-400">Proactive maintenance for a worry-free life.</p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
-            { name: "Lite", price: "₹999/yr", features: ["2 Electrical Checks", "1 Plumbing Check", "Priority Booking"] },
-            { name: "Premium", price: "₹2499/yr", features: ["Monthly Cleaning", "AC Servicing", "Zero Visiting Fees", "Emergency Support"] },
-            { name: "Elite", price: "Custom", features: ["Dedicated Manager", "Appliance Warranty", "Unlimited Repairs", "Brand Partnerships"] }
-          ].map((plan, i) => (
-            <div key={i} className={`p-8 rounded-3xl border ${i === 1 ? 'border-cyan-500 bg-cyan-500/5' : 'border-white/10'} relative overflow-hidden`}>
-              {i === 1 && <span className="absolute top-4 right-4 bg-cyan-500 text-black text-[10px] font-bold px-2 py-1 rounded">MOST POPULAR</span>}
-              <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
-              <div className="text-3xl font-extrabold text-white mb-6">{plan.price}</div>
-              <ul className="space-y-4 mb-8">
-                {plan.features.map(f => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-slate-400">
-                    <CheckCircle2 size={16} className="text-cyan-500" /> {f}
-                  </li>
-                ))}
-              </ul>
-              <button className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold transition-all">Get Started</button>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Emergency Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-7xl mx-auto bg-red-500/10 border border-red-500/20 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex gap-6 items-center">
-            <div className="w-16 h-16 bg-red-500 rounded-2xl flex items-center justify-center animate-pulse">
-              <AlertTriangle className="text-white w-8 h-8" />
-            </div>
+      {/* 3. Info Section ("Meet USD Halo.") */}
+      <section className="bg-[#F5F5F5] px-6 py-24 w-full">
+        <div className="max-w-[88rem] mx-auto">
+          {/* Row 1 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 items-start">
             <div>
-              <h2 className="text-2xl font-bold text-white">Emergency Home Services</h2>
-              <p className="text-red-200/70">Pipe leakage, electrical failure, or AC malfunction? We respond in under 60 mins.</p>
-            </div>
-          </div>
-          <button className="whitespace-nowrap px-8 py-4 bg-red-600 hover:bg-red-500 text-white rounded-full font-bold transition-all">
-            Call Rapid Support
-          </button>
-        </div>
-      </section>
-
-      {/* Skill & Vision Section */}
-      <section id="vision" className="py-24 px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
-        <div className="p-10 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10">
-          <GraduationCap className="text-cyan-400 w-12 h-12 mb-6" />
-          <h3 className="text-2xl font-bold text-white mb-4">Workforce Empowerment</h3>
-          <p className="text-slate-400 mb-6">We partner with ITIs and vocational centers to provide certified training and career paths for local youth, reducing dependency on unorganized labor.</p>
-          <div className="flex gap-4 opacity-50 italic text-sm">
-            <span>#SkillIndia</span>
-            <span>#VocationalGrowth</span>
-          </div>
-        </div>
-        <div className="p-10 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/10">
-          <Users className="text-cyan-400 w-12 h-12 mb-6" />
-          <h3 className="text-2xl font-bold text-white mb-4">Brand Partnership Vision</h3>
-          <p className="text-slate-400 mb-6">Future integrations with Samsung, LG, and Whirlpool for authorized appliance servicing and parts ecosystem across India.</p>
-          <div className="flex gap-6 grayscale opacity-30">
-            {/* Logos Placeholder */}
-            <div className="font-bold">SAMSUNG</div>
-            <div className="font-bold">LG</div>
-            <div className="font-bold">IFB</div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-white/10 pt-20 pb-10 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            <div className="col-span-2">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
-                   <div className="w-3 h-3 border-2 border-black rotate-45" />
+              <h2 
+                className="text-black text-4xl md:text-5xl font-medium leading-tight mb-8"
+                style={{ letterSpacing: '-0.03em' }}
+              >
+                Meet USD Halo.
+              </h2>
+              <button className="inline-flex items-center gap-3 bg-black text-white text-base font-medium pl-8 pr-2 py-2 rounded-full hover:bg-gray-800 transition-colors duration-200 group">
+                Discover it
+                <div className="bg-white rounded-full p-2">
+                  <ArrowRight className="w-4 h-4 text-black" />
                 </div>
-                <span className="text-white font-bold tracking-tighter text-lg">HAVEN</span>
-              </div>
-              <p className="text-slate-500 max-w-xs mb-6">
-                Building the future of hyperlocal services through trust, technology, and human empowerment.
+              </button>
+            </div>
+            <div>
+              <p className="text-black/70 text-2xl md:text-3xl leading-relaxed">
+                USD Halo is a reward-earning dollar coin that lets your savings grow while remaining tied to the U.S. dollar.
               </p>
-              <div className="flex gap-4">
-                <span className="text-xs text-slate-600 hover:text-white cursor-pointer transition-colors">@gofor.haven</span>
-                <span className="text-xs text-slate-600 hover:text-white cursor-pointer transition-colors">@goforhaven</span>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-6">Company</h4>
-              <ul className="space-y-4 text-sm text-slate-500">
-                <li className="hover:text-white cursor-pointer">About Us</li>
-                <li className="hover:text-white cursor-pointer">Join as Partner</li>
-                <li className="hover:text-white cursor-pointer">Impact</li>
-                <li className="hover:text-white cursor-pointer">Careers</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-6">Contact</h4>
-              <ul className="space-y-4 text-sm text-slate-500">
-                <li>gethavenservices@gmail.com</li>
-                <li>gethaven.in</li>
-                <li className="text-cyan-500 font-medium">Join the Waitlist</li>
-              </ul>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 text-[10px] text-slate-600 uppercase tracking-widest">
-            <p>© 2026 Haven Hyperlocal Ecosystem. All rights reserved.</p>
-            <div className="flex gap-8 mt-4 md:mt-0">
-              <span>Privacy Policy</span>
-              <span>Terms of Service</span>
+
+          {/* Row 2 - Grid Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div 
+              className="lg:col-span-2 rounded-2xl p-7 min-h-[20rem] flex flex-col justify-between"
+              style={{
+                backgroundImage: 'url("https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260423_164207_f243351d-ed59-48ec-83a0-a5e996bdbe3c.png&w=1280&q=85")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            >
+              <h3 
+                className="text-black text-2xl font-medium leading-snug"
+                style={{ letterSpacing: '-0.02em' }}
+              >
+                Savings that bloom
+              </h3>
+              <p className="text-black/70 text-base max-w-xs">
+                Gain steady returns as your dollar tokens are routed into top-performing DeFi strategies.
+              </p>
+            </div>
+
+            <div className="bg-[#2B2644] rounded-2xl p-7 min-h-[20rem] flex flex-col justify-between">
+              <h3 className="text-white text-2xl font-medium whitespace-pre-line">
+                {"Always fluid,\nalways pegged."}
+              </h3>
+              <p className="text-white/60 text-base">
+                Keep fully dollar-anchored with on-demand access to funds — no lockups or waits.
+              </p>
+            </div>
+
+            <div className="bg-[#2B2644] rounded-2xl p-7 min-h-[20rem] flex flex-col justify-between">
+              <h3 className="text-white text-2xl font-medium whitespace-pre-line">
+                {"Fully\nautomated"}
+              </h3>
+              <p className="text-white/60 text-base">
+                Skip the task of tuning positions yourself. USD Halo runs in the background for you.
+              </p>
             </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </section>
+
+      {/* 4. Backed By Section */}
+      <section className="bg-[#F5F5F5] px-6 pb-24 w-full">
+        <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 items-center">
+          <div className="md:col-span-1 text-black/70 text-base leading-relaxed whitespace-pre-line">
+            {"Funded by premier partners\nand forward-thinking leaders."}
+          </div>
+          <div className="md:col-span-3 overflow-hidden">
+            <div className="backers-track">
+              {[...backerBrands, ...backerBrands].map((brand, idx) => (
+                <span 
+                  key={idx} 
+                  className="mx-10 shrink-0 text-black/50 whitespace-nowrap"
+                  style={brand.style}
+                >
+                  {brand.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Use Cases Section */}
+      <section className="bg-[#F5F5F5] px-6 pb-24 w-full">
+        <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          
+          {/* Left Column */}
+          <div className="md:pr-12 md:pt-2">
+            <span className="block text-black/60 text-sm mb-2">USD Halo in Practice</span>
+            <h2 
+              className="text-black text-5xl md:text-6xl font-medium leading-none mb-6"
+              style={{ letterSpacing: '-0.04em' }}
+            >
+              Use modes
+            </h2>
+            <p className="text-black/60 text-base leading-relaxed max-w-sm">
+              USD Halo powers a wide range of modes for builders, companies and treasuries wanting safe and rewarding stablecoin integrations plus more
+            </p>
+          </div>
+
+          {/* Right Column */}
+          <div className="relative rounded-3xl overflow-hidden min-h-[720px] w-full">
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline 
+              className="object-cover absolute inset-0 w-full h-full"
+              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_183428_ab5e672a-f608-4dcb-b319-f3e040f02e2d.mp4"
+            />
+            
+            <div className="relative z-10 p-10 md:p-12 flex flex-col h-full justify-start items-start">
+              <h3 
+                className="text-black text-4xl md:text-5xl font-medium leading-tight mb-5"
+                style={{ letterSpacing: '-0.03em' }}
+              >
+                Commerce
+              </h3>
+              <p className="text-black/70 text-base max-w-md mb-8">
+                Lift customer retention by offering USD Halo, a trusted dollar-backed stablecoin with strong yields, letting your patrons earn with zero effort on your platform.
+              </p>
+              
+              <a href="#commerce" className="inline-flex items-center gap-3 text-black font-medium group">
+                Know more
+                <div className="w-9 h-9 rounded-full bg-white/80 backdrop-blur flex items-center justify-center group-hover:bg-white transition-colors duration-200">
+                  <ArrowRight className="w-4 h-4 text-black" />
+                </div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
   );
 }
