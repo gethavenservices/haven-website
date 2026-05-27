@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
-const LogoIcon = ({ className }: { className?: string }) => (
+const LogoIcon = ({ className }) => (
   <svg 
     viewBox="0 0 256 256" 
     fill="currentColor" 
