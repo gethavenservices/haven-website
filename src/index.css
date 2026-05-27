@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('/fonts/tt-norms-pro-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('/fonts/tt-norms-pro-semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+html, body {
+  background-color: #F5F5F5;
+  font-family: 'TT Norms Pro', sans-serif;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  font-family: inherit;
+}
+
+/* Animations for seamless marquees */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes backers-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+}
+
+.backers-track {
+  display: flex;
+  width: max-content;
+  animation: backers-marquee 30s linear infinite;
+}
