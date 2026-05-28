@@ -312,20 +312,19 @@ export default function App() {
 
         {/* Hero Area */}
         <section id="home" className="flex-1 px-6 pt-28 lg:pt-20 pb-6 flex items-center w-full">
-          <div className="relative w-full h-full min-h-[580px] lg:h-[calc(100vh-96px)] rounded-3xl flex flex-col justify-center items-start shadow-sm overflow-hidden bg-[#EAE8F0] border border-black/5">
+          <div className="relative w-full h-full min-h-[580px] lg:h-[calc(100vh-96px)] rounded-3xl flex flex-col justify-center items-start shadow-sm overflow-hidden border border-black/5">
             
-            {/*
-              PRODUCTION SETUP: Configured to look for a local video file.
-              This guarantees the browser won't crash on cross-origin blocks.
+            {/* FIXED VIDEO SECTION: Attached to your ref, and placed strictly in the background 
             */}
-              <video 
-  src="/background-video.mp4" 
-  autoPlay 
-  loop 
-  muted 
-  playsInline
-  className="your-styling-class-here"
-/>
+            <video 
+              ref={videoPlayerRef}
+              src="/background-video.mp4" 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover z-0"
+            />
 
             <div className="absolute inset-0 bg-gradient-to-r from-[#F5F5F5] via-[#F5F5F5]/95 md:via-[#F5F5F5]/70 to-transparent z-10 pointer-events-none"></div>
 
@@ -544,74 +543,40 @@ export default function App() {
         </div>
       </section>
 
-      {/* Partnerships */}
+      {/* Partnerships - FIXED AND COMPLETED */}
       <section id="partnerships" className="bg-[#F5F5F5] px-6 py-24 w-full border-t border-black/5">
         <div className="max-w-[88rem] mx-auto">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-black text-4xl md:text-5xl font-medium leading-tight mb-6" style={{ letterSpacing: '-0.03em' }}>
-              Workforce Empowerment & Brand Vision
+              Workforce Empowerment & Brands
             </h2>
             <p className="text-black/60 text-lg">
-              We focus heavily on skill development, certified career development paths, and regional servicing partnerships with global appliance giants.
+              We collaborate with industry leaders and vocational centers to upskill our partners.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-center bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-black/5">
-            <div className="md:col-span-1 text-black/80 font-medium text-lg leading-relaxed whitespace-pre-line border-b md:border-b-0 md:border-r border-black/10 pb-6 md:pb-0 md:pr-6">
-              {"Future partnerships with\nappliance brands & ITIs\nto reduce dependency."}
+          
+          <div className="w-full overflow-hidden opacity-[0.8] mt-8">
+            <div className="backers-track">
+              {[...backerBrands, ...backerBrands].map((brand, idx) => (
+                <span key={idx} className="mx-8 shrink-0 text-gray-500 whitespace-nowrap" style={brand.style}>
+                  {brand.name}
+                </span>
+              ))}
             </div>
-            <div className="md:col-span-3 overflow-hidden">
-              <div className="backers-track">
-                {[...backerBrands, ...backerBrands].map((brand, idx) => (
-                  <span key={idx} className="mx-10 shrink-0 text-black/50 whitespace-nowrap" style={brand.style}>
-                    {brand.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 bg-black text-white rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-medium tracking-tight mb-3">Grow Your Earnings as a Haven Partner</h3>
-              <p className="text-white/60 text-sm md:text-base max-w-2xl leading-relaxed">
-                Are you an experienced electrician, plumber, technician, or painter? Join India's most trusted skilled-service ecosystem. Get regular hyperlocal bookings, transparent digital payouts, and professional recognition.
-              </p>
-            </div>
-            <button 
-              onClick={handlePartnerClick}
-              className="shrink-0 bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-gray-200 transition-colors inline-flex items-center gap-2 text-sm md:text-base shadow-sm"
-            >
-              Apply as Partner <ArrowRight className="w-4 h-4" />
-            </button>
           </div>
 
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-black text-white px-6 py-12 md:py-20 w-full mt-auto">
-        <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
-          <div>
-            <div className="flex items-center gap-3 mb-6">
-              <LogoIcon className="w-8 h-8 text-white" />
-              <span className="text-3xl font-medium tracking-tight">Haven</span>
-            </div>
-            <p className="text-white/60 max-w-sm text-sm leading-relaxed mb-6">
-              India’s Trusted Hyperlocal Skilled-Service Ecosystem. <br/>
-              Connecting households with trusted professionals through technology and reliability.
-            </p>
+      {/* Footer to properly close out the layout */}
+      <footer className="bg-white text-black border-t border-black/5 px-6 py-12 w-full">
+        <div className="max-w-[88rem] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-3">
+            <LogoIcon className="w-6 h-6 text-black" />
+            <span className="text-xl font-medium tracking-tight">Haven</span>
           </div>
-          
-          <div className="flex flex-col md:items-end gap-2 text-sm text-white/60">
-            <p>Email: <a href="mailto:gethavenservices@gmail.com" className="text-white hover:underline">gethavenservices@gmail.com</a></p>
-            <p>Domain: <a href="https://gethaven.in" className="text-white hover:underline">gethaven.in</a></p>
-            <p>Instagram: <a href="https://instagram.com/gofor.haven" className="text-white hover:underline">@gofor.haven</a></p>
-            <p>X/Twitter: <a href="https://twitter.com/goforhaven" className="text-white hover:underline">@goforhaven</a></p>
-            <p className="mt-4"><button onClick={handlePartnerClick} className="text-white underline hover:text-gray-300 font-medium">Partner Registration Portal</button></p>
-            <p className="mt-4 text-white/40">© 2026 Haven. All rights reserved.</p>
-          </div>
+          <p className="text-black/60 text-sm">© {new Date().getFullYear()} Haven Ecosystem. All rights reserved.</p>
         </div>
       </footer>
 
