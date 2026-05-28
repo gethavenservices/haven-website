@@ -56,7 +56,6 @@ export default function App() {
   const [isPartnerMode, setIsPartnerMode] = useState(false);
   const [partnerStep, setPartnerStep] = useState('form'); 
 
-  // Create a direct DOM reference for the video player
   const videoPlayerRef = useRef(null);
 
   const [formData, setFormData] = useState({
@@ -67,21 +66,18 @@ export default function App() {
     name: '', phone: '', trade: 'Electrical', experience: '1-3 Years', location: ''
   });
 
-  // BULLETPROOF AUTOPLAY EXECUTION BLOCK
   useEffect(() => {
     const runAutoplayHandshake = () => {
       const videoNode = videoPlayerRef.current;
       if (videoNode) {
-        // Force the absolute lowest level DOM mutations required by strict browser rules
         videoNode.hasAttribute('muted') || videoNode.setAttribute('muted', 'true');
         videoNode.defaultMuted = true;
         videoNode.muted = true;
         
-        // Execute playback request asynchronously to dodge the browser race conditions
         const playPromise = videoNode.play();
         if (playPromise !== undefined) {
           playPromise.catch((error) => {
-            console.warn("Autoplay initialization fell back to manual trigger stream:", error);
+            console.warn("Autoplay was prevented by the environment setup:", error);
           });
         }
       }
@@ -318,14 +314,17 @@ export default function App() {
         <section id="home" className="flex-1 px-6 pt-28 lg:pt-20 pb-6 flex items-center w-full">
           <div className="relative w-full h-full min-h-[580px] lg:h-[calc(100vh-96px)] rounded-3xl flex flex-col justify-center items-start shadow-sm overflow-hidden bg-[#EAE8F0] border border-black/5">
             
-            {/* Native player tracking combined with clean attribute alignment */}
+            {/*
+              PRODUCTION SETUP: Configured to look for a local video file.
+              This guarantees the browser won't crash on cross-origin blocks.
+            */}
             <video 
               ref={videoPlayerRef}
               autoPlay 
               loop 
               muted 
               playsInline
-              src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054e7d9830da42323f46f4eb1d46c82&profile_id=139&oauth2_token_id=57447761"
+              src="/background-video.mp4"
               poster="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop"
               className="absolute inset-0 w-full h-full object-cover z-0 object-center"
             />
@@ -613,7 +612,7 @@ export default function App() {
             <p>Instagram: <a href="https://instagram.com/gofor.haven" className="text-white hover:underline">@gofor.haven</a></p>
             <p>X/Twitter: <a href="https://twitter.com/goforhaven" className="text-white hover:underline">@goforhaven</a></p>
             <p className="mt-4"><button onClick={handlePartnerClick} className="text-white underline hover:text-gray-300 font-medium">Partner Registration Portal</button></p>
-            <p className="mt-4 text-white/40">© 2026 Haven Hyperlocal Services. All rights reserved.</p>
+            <p className="mt-4 text-white/40">© 2026 Haven. All rights reserved.</p>
           </div>
         </div>
       </footer>
