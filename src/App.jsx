@@ -12,25 +12,19 @@ const LogoIcon = ({ className }) => (
   </svg>
 );
 
-const heroBrands = [
-  { name: 'Stripe', style: { fontFamily: 'Georgia, serif', fontWeight: 700, letterSpacing: '-0.02em', fontSize: '15px' } },
-  { name: 'Coinbase', style: { fontFamily: 'Arial, sans-serif', fontWeight: 900, letterSpacing: '0.08em', fontSize: '13px', textTransform: 'uppercase' } },
-  { name: 'Uniswap', style: { fontFamily: '"Trebuchet MS", sans-serif', fontWeight: 600, letterSpacing: '0.01em', fontSize: '15px', fontStyle: 'italic' } },
-  { name: 'Aave', style: { fontFamily: '"Courier New", monospace', fontWeight: 700, letterSpacing: '0.12em', fontSize: '13px', textTransform: 'uppercase' } },
-  { name: 'Compound', style: { fontFamily: 'Palatino, "Book Antiqua", serif', fontWeight: 400, letterSpacing: '-0.01em', fontSize: '16px' } },
-  { name: 'MakerDAO', style: { fontFamily: 'Impact, "Arial Narrow", sans-serif', fontWeight: 400, letterSpacing: '0.04em', fontSize: '14px' } },
-  { name: 'Chainlink', style: { fontFamily: 'Verdana, sans-serif', fontWeight: 700, letterSpacing: '-0.03em', fontSize: '13px' } },
+const heroTrust = [
+  { name: 'Verified Experts', style: { fontFamily: 'Georgia, serif', fontWeight: 700, letterSpacing: '-0.02em', fontSize: '15px' } },
+  { name: 'Secure Booking', style: { fontFamily: 'Arial, sans-serif', fontWeight: 900, letterSpacing: '0.08em', fontSize: '13px', textTransform: 'uppercase' } },
+  { name: '24/7 Support', style: { fontFamily: '"Trebuchet MS", sans-serif', fontWeight: 600, letterSpacing: '0.01em', fontSize: '15px', fontStyle: 'italic' } },
+  { name: 'Local Ecosystem', style: { fontFamily: '"Courier New", monospace', fontWeight: 700, letterSpacing: '0.12em', fontSize: '13px', textTransform: 'uppercase' } },
+  { name: 'Quality Assured', style: { fontFamily: 'Palatino, "Book Antiqua", serif', fontWeight: 400, letterSpacing: '-0.01em', fontSize: '16px' } },
 ];
 
 const backerBrands = [
-  { name: 'Fundamental Labs', style: { fontFamily: '"Times New Roman", serif', fontWeight: 400, letterSpacing: '0.02em', fontSize: '14px' } },
-  { name: 'KUCOIN', style: { fontFamily: '"Arial Black", sans-serif', fontWeight: 900, letterSpacing: '0.08em', fontSize: '16px' } },
-  { name: 'NGC', style: { fontFamily: 'Impact, sans-serif', fontWeight: 700, letterSpacing: '0.05em', fontSize: '18px' } },
-  { name: 'NxGen', style: { fontFamily: 'Georgia, serif', fontWeight: 600, letterSpacing: '-0.02em', fontSize: '17px' } },
-  { name: 'Matter Labs', style: { fontFamily: 'Helvetica, sans-serif', fontWeight: 700, letterSpacing: '-0.01em', fontSize: '15px' } },
-  { name: 'DEXTools', style: { fontFamily: 'Verdana, sans-serif', fontWeight: 700, letterSpacing: '0.06em', fontSize: '14px', textTransform: 'uppercase' } },
-  { name: 'NGRAVE', style: { fontFamily: '"Courier New", monospace', fontWeight: 700, letterSpacing: '0.18em', fontSize: '14px' } },
-  { name: 'Polychain', style: { fontFamily: 'Palatino, serif', fontWeight: 500, letterSpacing: '0.03em', fontSize: '15px' } },
+  { name: 'Property Management', style: { fontFamily: '"Times New Roman", serif', fontWeight: 400, letterSpacing: '0.02em', fontSize: '14px' } },
+  { name: 'Local Services', style: { fontFamily: '"Arial Black", sans-serif', fontWeight: 900, letterSpacing: '0.08em', fontSize: '16px' } },
+  { name: 'Effortless Hospitality', style: { fontFamily: 'Impact, sans-serif', fontWeight: 700, letterSpacing: '0.05em', fontSize: '18px' } },
+  { name: 'Trusted Network', style: { fontFamily: 'Georgia, serif', fontWeight: 600, letterSpacing: '-0.02em', fontSize: '17px' } },
 ];
 
 export default function App() {
@@ -44,19 +38,18 @@ export default function App() {
         <nav className="absolute top-0 left-0 right-0 z-20 px-6 py-5 flex items-center justify-between">
           <div className="flex items-center gap-3 cursor-pointer">
             <LogoIcon className="w-7 h-7 text-black" />
-            <span className="text-2xl font-medium tracking-tight text-black">Halo</span>
+            <span className="text-2xl font-medium tracking-tight text-black">Haven</span>
           </div>
           
           <div className="hidden md:flex items-center gap-8 text-base text-gray-700 font-medium">
-            <a href="#network" className="hover:text-black transition-colors duration-200">Network</a>
-            <a href="#ecosystem" className="hover:text-black transition-colors duration-200">Ecosystem</a>
-            <a href="#rewards" className="hover:text-black transition-colors duration-200">Rewards</a>
-            <a href="#help" className="hover:text-black transition-colors duration-200">Help</a>
-            <a href="#news" className="hover:text-black transition-colors duration-200">News</a>
+            <a href="#services" className="hover:text-black transition-colors duration-200">Services</a>
+            <a href="#ecosystem" className="hover:text-black transition-colors duration-200">Our Ecosystem</a>
+            <a href="#about" className="hover:text-black transition-colors duration-200">About Us</a>
+            <a href="#contact" className="hover:text-black transition-colors duration-200">Contact</a>
           </div>
 
           <button className="bg-black text-white text-base font-medium px-7 py-2.5 rounded-full hover:bg-gray-800 transition-colors duration-200">
-            Open Wallet
+            Book Now
           </button>
         </nav>
 
@@ -66,12 +59,13 @@ export default function App() {
             className="relative w-full rounded-2xl overflow-hidden" 
             style={{ height: 'calc(100vh - 96px)' }}
           >
+            {/* Background Video */}
             <video 
               autoPlay 
               muted 
               loop 
               playsInline 
-              className="object-cover absolute inset-0 w-full h-full"
+              className="object-cover absolute inset-0 w-full h-full opacity-60"
               src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_161253_c72b1869-400f-45ed-ac0c-52f68c2ed5bd.mp4"
             />
             
@@ -80,17 +74,17 @@ export default function App() {
                 className="text-black text-5xl md:text-6xl font-medium leading-tight max-w-xl mb-4"
                 style={{ letterSpacing: '-0.04em' }}
               >
-                Your Wealth<br />Works
+                Intelligent Property,<br />Effortless Hospitality
               </h1>
               <p 
-                className="text-black/70 text-base md:text-lg max-w-md mb-8 leading-relaxed"
+                className="text-black/80 text-base md:text-lg max-w-md mb-8 leading-relaxed font-medium"
                 style={{ fontFamily: "'Inter', ui-sans-serif, system-ui, sans-serif" }}
               >
-                An automated, reward-powered digital dollar built for native passive earnings and effortless connection into DeFi.
+                Your trusted hyperlocal ecosystem. We connect you with verified professionals for seamless property management and local services.
               </p>
               
               <button className="inline-flex items-center gap-3 bg-black text-white text-base md:text-lg font-medium pl-8 pr-2 py-2 rounded-full hover:bg-gray-800 transition-colors duration-200 group">
-                Join us
+                Explore Services
                 <div className="bg-white rounded-full p-2">
                   <ArrowRight className="w-5 h-5 text-black" />
                 </div>
@@ -99,14 +93,14 @@ export default function App() {
               {/* Hero Marquee */}
               <div className="mt-24 w-full max-w-md overflow-hidden mask-fade-edges">
                 <div className="marquee-track">
-                  {[...heroBrands, ...heroBrands].map((brand, idx) => (
-                    <span 
-                      key={idx} 
-                      className="mx-7 shrink-0 text-black/60 whitespace-nowrap"
-                      style={brand.style}
-                    >
-                      {brand.name}
-                    </span>
+                  {[...heroTrust, ...heroTrust].map((brand, idx) => (
+                     <span 
+                     key={idx} 
+                     className="mx-7 shrink-0 text-black/60 whitespace-nowrap"
+                     style={brand.style}
+                   >
+                     {brand.name}
+                   </span>
                   ))}
                 </div>
               </div>
@@ -115,7 +109,7 @@ export default function App() {
         </section>
       </div>
 
-      {/* 3. Info Section ("Meet USD Halo.") */}
+      {/* 3. Info Section ("Meet Haven.") */}
       <section className="bg-[#F5F5F5] px-6 py-24 w-full">
         <div className="max-w-[88rem] mx-auto">
           {/* Row 1 */}
@@ -125,10 +119,10 @@ export default function App() {
                 className="text-black text-4xl md:text-5xl font-medium leading-tight mb-8"
                 style={{ letterSpacing: '-0.03em' }}
               >
-                Meet USD Halo.
+                Meet Haven.
               </h2>
               <button className="inline-flex items-center gap-3 bg-black text-white text-base font-medium pl-8 pr-2 py-2 rounded-full hover:bg-gray-800 transition-colors duration-200 group">
-                Discover it
+                See how it works
                 <div className="bg-white rounded-full p-2">
                   <ArrowRight className="w-4 h-4 text-black" />
                 </div>
@@ -136,7 +130,7 @@ export default function App() {
             </div>
             <div>
               <p className="text-black/70 text-2xl md:text-3xl leading-relaxed">
-                USD Halo is a reward-earning dollar coin that lets your savings grow while remaining tied to the U.S. dollar.
+                The complete platform for luxury vacation rentals, student accommodations, and trusted local services—all in one place.
               </p>
             </div>
           </div>
@@ -155,108 +149,33 @@ export default function App() {
                 className="text-black text-2xl font-medium leading-snug"
                 style={{ letterSpacing: '-0.02em' }}
               >
-                Savings that bloom
+                Verified Professionals
               </h3>
-              <p className="text-black/70 text-base max-w-xs">
-                Gain steady returns as your dollar tokens are routed into top-performing DeFi strategies.
+              <p className="text-black/80 font-medium text-base max-w-xs">
+                Every service provider in our network undergoes strict background checks and quality assessments.
               </p>
             </div>
 
             <div className="bg-[#2B2644] rounded-2xl p-7 min-h-[20rem] flex flex-col justify-between">
               <h3 className="text-white text-2xl font-medium whitespace-pre-line">
-                {"Always fluid,\nalways pegged."}
+                {"Instant\nBooking"}
               </h3>
               <p className="text-white/60 text-base">
-                Keep fully dollar-anchored with on-demand access to funds — no lockups or waits.
+                Schedule property maintenance and local services at your convenience with real-time availability.
               </p>
             </div>
 
             <div className="bg-[#2B2644] rounded-2xl p-7 min-h-[20rem] flex flex-col justify-between">
               <h3 className="text-white text-2xl font-medium whitespace-pre-line">
-                {"Fully\nautomated"}
+                {"Secure\nPayments"}
               </h3>
               <p className="text-white/60 text-base">
-                Skip the task of tuning positions yourself. USD Halo runs in the background for you.
+                Pay safely through our platform. Funds are handled securely so you can book with total peace of mind.
               </p>
             </div>
           </div>
         </div>
       </section>
-
-      {/* 4. Backed By Section */}
-      <section className="bg-[#F5F5F5] px-6 pb-24 w-full">
-        <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 items-center">
-          <div className="md:col-span-1 text-black/70 text-base leading-relaxed whitespace-pre-line">
-            {"Funded by premier partners\nand forward-thinking leaders."}
-          </div>
-          <div className="md:col-span-3 overflow-hidden">
-            <div className="backers-track">
-              {[...backerBrands, ...backerBrands].map((brand, idx) => (
-                <span 
-                  key={idx} 
-                  className="mx-10 shrink-0 text-black/50 whitespace-nowrap"
-                  style={brand.style}
-                >
-                  {brand.name}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Use Cases Section */}
-      <section className="bg-[#F5F5F5] px-6 pb-24 w-full">
-        <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          
-          {/* Left Column */}
-          <div className="md:pr-12 md:pt-2">
-            <span className="block text-black/60 text-sm mb-2">USD Halo in Practice</span>
-            <h2 
-              className="text-black text-5xl md:text-6xl font-medium leading-none mb-6"
-              style={{ letterSpacing: '-0.04em' }}
-            >
-              Use modes
-            </h2>
-            <p className="text-black/60 text-base leading-relaxed max-w-sm">
-              USD Halo powers a wide range of modes for builders, companies and treasuries wanting safe and rewarding stablecoin integrations plus more
-            </p>
-          </div>
-
-          {/* Right Column */}
-          <div className="relative rounded-3xl overflow-hidden min-h-[720px] w-full">
-            <video 
-              autoPlay 
-              muted 
-              loop 
-              playsInline 
-              className="object-cover absolute inset-0 w-full h-full"
-              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_183428_ab5e672a-f608-4dcb-b319-f3e040f02e2d.mp4"
-            />
-            
-            <div className="relative z-10 p-10 md:p-12 flex flex-col h-full justify-start items-start">
-              <h3 
-                className="text-black text-4xl md:text-5xl font-medium leading-tight mb-5"
-                style={{ letterSpacing: '-0.03em' }}
-              >
-                Commerce
-              </h3>
-              <p className="text-black/70 text-base max-w-md mb-8">
-                Lift customer retention by offering USD Halo, a trusted dollar-backed stablecoin with strong yields, letting your patrons earn with zero effort on your platform.
-              </p>
-              
-              <a href="#commerce" className="inline-flex items-center gap-3 text-black font-medium group">
-                Know more
-                <div className="w-9 h-9 rounded-full bg-white/80 backdrop-blur flex items-center justify-center group-hover:bg-white transition-colors duration-200">
-                  <ArrowRight className="w-4 h-4 text-black" />
-                </div>
-              </a>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
     </main>
   );
 }
