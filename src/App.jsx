@@ -1,100 +1,24 @@
 import React, { useState } from 'react';
+import { 
+  ArrowRight, Menu, X, Wrench, Zap, Hammer, PaintRoller, 
+  Sparkles, Fan, Settings, Droplets, CheckCircle2, 
+  ChevronLeft, Shield
+} from 'lucide-react';
 
-// NATIVE INLINE SVG COMPONENTS (Eliminates all package dependencies to prevent white-screen crashes)
 const LogoIcon = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
     <polyline strokeLinecap="round" strokeLinejoin="round" points="9 22 9 12 15 12 15 22" />
   </svg>
 );
 
-const ArrowRight = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-  </svg>
-);
-
-const Menu = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-  </svg>
-);
-
-const X = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-  </svg>
-);
-
-const ChevronLeft = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-  </svg>
-);
-
-const CheckCircle2 = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-  </svg>
-);
-
-const Shield = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-  </svg>
-);
-
-const Droplets = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
-  </svg>
-);
-
-const Zap = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-  </svg>
-);
-
-const Hammer = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M11 21.95V18m0 0V9m0 9H7m4 0h4M16 4a2 2 0 11-4 0M7 7h10v3H7V7z" />
-  </svg>
-);
-
-const PaintRoller = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M7 7h10v4H7V7zm10 2h2a2 2 0 012 2v3a2 2 0 01-2 2h-4v4" />
-  </svg>
-);
-
-const Sparkles = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zm14 14a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2h-2z" />
-  </svg>
-);
-
-const Fan = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="12" r="3" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9V3m0 12v6m3-9h6M3 12h6" />
-  </svg>
-);
-
-const Settings = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="12" r="3" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
-  </svg>
-);
-
-const Wrench = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-  </svg>
-);
-
-// DATA OBJECTS
 const serviceMarquee = [
   { name: 'Plumbing', style: { fontFamily: 'Georgia, serif', fontWeight: 700, letterSpacing: '-0.02em', fontSize: '15px' } },
   { name: 'Electrical', style: { fontFamily: 'Arial, sans-serif', fontWeight: 900, letterSpacing: '0.08em', fontSize: '13px', textTransform: 'uppercase' } },
@@ -205,6 +129,25 @@ export default function App() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
                     <input type="tel" name="phone" value={partnerData.phone} onChange={handlePartnerInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black" />
                   </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Primary Trade</label>
+                    <select name="trade" value={partnerData.trade} onChange={handlePartnerInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black">
+                      <option>Electrical</option>
+                      <option>Plumbing</option>
+                      <option>Carpentry</option>
+                      <option>AC Repair & Appliance</option>
+                      <option>Cleaning</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Years of Experience</label>
+                    <select name="experience" value={partnerData.experience} onChange={handlePartnerInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black">
+                      <option>0-1 Years</option>
+                      <option>1-3 Years</option>
+                      <option>3-5 Years</option>
+                      <option>5+ Years</option>
+                    </select>
+                  </div>
                   <div className="md:col-span-2">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Service City / Area</label>
                     <input type="text" name="location" value={partnerData.location} onChange={handlePartnerInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black" />
@@ -256,11 +199,27 @@ export default function App() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                    <input type="tel" name="phone" value={formData.phone} onChange={formData.phone} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black" />
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Date</label>
+                    <input type="date" name="date" value={formData.date} onChange={handleInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Time Slot</label>
+                    <select name="timeSlot" value={formData.timeSlot} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black">
+                      <option>Morning (9 AM - 12 PM)</option>
+                      <option>Afternoon (12 PM - 4 PM)</option>
+                      <option>Evening (4 PM - 7 PM)</option>
+                    </select>
                   </div>
                   <div className="md:col-span-2">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Service Address</label>
                     <textarea name="address" value={formData.address} onChange={handleInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black" rows="2" />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Additional Notes (Optional)</label>
+                    <textarea name="notes" value={formData.notes} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black" rows="2" placeholder="Describe the issue you're facing..." />
                   </div>
                 </div>
                 <button type="submit" className="w-full bg-black text-white py-4 rounded-2xl font-medium text-base hover:bg-gray-800 transition-colors shadow-sm mt-4 flex items-center justify-center gap-2">
@@ -293,10 +252,9 @@ export default function App() {
         @keyframes backers-marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
       `}} />
 
-      {/* Navbar & Hero Section Wrapper */}
+      {/* Navbar & Hero Section */}
       <div className="min-h-screen lg:h-screen flex flex-col overflow-hidden w-full max-w-[88rem] mx-auto relative mb-12 lg:mb-0">
         
-        {/* Navbar */}
         <nav className="absolute top-0 left-0 right-0 z-50 px-6 py-5">
           <div className="flex items-center justify-between">
             <div onClick={handleBackToHome} className="flex items-center gap-3 cursor-pointer">
@@ -330,25 +288,28 @@ export default function App() {
           </div>
         </nav>
 
-        {/* Hero Area Matching Screenshot 2026-05-28 182700.jpg */}
+        {/* Hero Area */}
         <section id="home" className="flex-1 px-6 pt-28 lg:pt-20 pb-6 flex items-center w-full">
           <div className="relative w-full h-full min-h-[580px] lg:h-[calc(100vh-96px)] rounded-3xl flex flex-col justify-center items-start shadow-sm overflow-hidden bg-[#EAE8F0] border border-black/5">
             
-            {/* Background Video */}
+            {/* 
+              VIDEO FIX: Added 'poster' attribute. 
+              If the .mp4 fails to load due to browser tracking protection or dead link, 
+              this high-quality professional image will load seamlessly in its place. 
+            */}
             <video 
               autoPlay 
               loop 
               muted 
               playsInline
+              poster="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop"
               className="absolute inset-0 w-full h-full object-cover z-0 object-center"
             >
               <source src="https://assets.mixkit.co/videos/preview/mixkit-electrician-working-on-a-switchboard-42283-large.mp4" type="video/mp4" />
             </video>
 
-            {/* Clean Mask Layer */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#F5F5F5] via-[#F5F5F5]/95 md:via-[#F5F5F5]/70 to-transparent z-10 pointer-events-none"></div>
 
-            {/* Text and Primary Controls */}
             <div className="relative z-20 flex flex-col items-start max-w-xl p-8 md:p-12 lg:ml-6">
               <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white border border-gray-200 text-gray-900 font-semibold text-xs tracking-wide mb-8 shadow-sm">
                 Coming soon to your neighbourhood
@@ -380,7 +341,6 @@ export default function App() {
                 </button>
               </div>
 
-              {/* Infinite Sub-Text Marquee */}
               <div className="mt-12 lg:mt-16 w-full overflow-hidden opacity-[0.8]">
                 <div className="marquee-track">
                   {[...serviceMarquee, ...serviceMarquee].map((brand, idx) => (
@@ -432,7 +392,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Brand Identity / Core Feature Blocks */}
+      {/* Why Haven */}
       <section id="why-haven" className="bg-[#F5F5F5] px-6 py-24 w-full border-t border-black/5">
         <div className="max-w-[88rem] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 items-start">
@@ -495,7 +455,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Subscription Features & Emergency Desk */}
+      {/* Ecosystem */}
       <section id="ecosystem" className="bg-[#F5F5F5] px-6 py-24 w-full">
         <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
@@ -565,7 +525,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Industrial Alliances & Workforce Conversion */}
+      {/* Partnerships */}
       <section id="partnerships" className="bg-[#F5F5F5] px-6 py-24 w-full border-t border-black/5">
         <div className="max-w-[88rem] mx-auto">
           
@@ -611,7 +571,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Footer Content */}
+      {/* Footer */}
       <footer className="bg-black text-white px-6 py-12 md:py-20 w-full mt-auto">
         <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
           <div>
@@ -631,7 +591,7 @@ export default function App() {
             <p>Instagram: <a href="https://instagram.com/gofor.haven" className="text-white hover:underline">@gofor.haven</a></p>
             <p>X/Twitter: <a href="https://twitter.com/goforhaven" className="text-white hover:underline">@goforhaven</a></p>
             <p className="mt-4"><button onClick={handlePartnerClick} className="text-white underline hover:text-gray-300 font-medium">Partner Registration Portal</button></p>
-            <p className="mt-4 text-white/40">© 2026 Haven. All rights reserved.</p>
+            <p className="mt-4 text-white/40">© 2026 Haven Hyperlocal Services. All rights reserved.</p>
           </div>
         </div>
       </footer>
