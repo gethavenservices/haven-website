@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   ArrowRight, Menu, X, Wrench, Zap, Hammer, PaintRoller, 
   Sparkles, Fan, Settings, Droplets, CheckCircle2, 
-  ChevronLeft, Calendar, Clock, User, Phone, MapPin, MessageSquare 
+  ChevronLeft, Calendar, Clock, User, Phone, MapPin, MessageSquare, Briefcase
 } from 'lucide-react';
 
 const LogoIcon = ({ className }) => (
@@ -54,7 +54,11 @@ export default function App() {
   const [selectedService, setSelectedService] = useState(null);
   const [bookingStep, setBookingStep] = useState('form'); // 'form' or 'success'
   
-  // Form State Values
+  // New States for "Become a Partner" Onboarding
+  const [isPartnerMode, setIsPartnerMode] = useState(false);
+  const [partnerStep, setPartnerStep] = useState('form'); // 'form' or 'success'
+
+  // Form State Values (Booking Engine)
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -64,19 +68,42 @@ export default function App() {
     notes: ''
   });
 
+  // Form State Values (Partner Application)
+  const [partnerData, setPartnerData] = useState({
+    name: '',
+    phone: '',
+    trade: 'Electrical',
+    experience: '1-3 Years',
+    location: ''
+  });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handlePartnerInputChange = (e) => {
+    const { name, value } = e.target;
+    setPartnerData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleServiceClick = (serviceName) => {
+    setIsPartnerMode(false);
     setSelectedService(serviceName);
     setBookingStep('form');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handlePartnerClick = () => {
+    setSelectedService(null);
+    setIsPartnerMode(true);
+    setPartnerStep('form');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleBackToHome = () => {
     setSelectedService(null);
+    setIsPartnerMode(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -86,7 +113,164 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Render the Dedicated Booking Page View
+  const handlePartnerSubmit = (e) => {
+    e.preventDefault();
+    setPartnerStep('success');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  /* =========================================================================
+     VIEW MODE 1: PARTNER APPLICATION SCREEN
+     ========================================================================= */
+  if (isPartnerMode) {
+    return (
+      <div className="bg-[#F5F5F5] min-h-screen text-black flex flex-col font-sans">
+        {/* Simple Top Navigation */}
+        <nav className="w-full max-w-[88rem] mx-auto px-6 py-5 flex items-center justify-between border-b border-black/5 bg-white/80 backdrop-blur-md sticky top-0 z-30">
+          <div onClick={handleBackToHome} className="flex items-center gap-3 cursor-pointer">
+            <LogoIcon className="w-7 h-7 text-black" />
+            <span className="text-2xl font-medium tracking-tight text-black">Haven</span>
+          </div>
+          <button 
+            onClick={handleBackToHome}
+            className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-black transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4" /> Back to home
+          </button>
+        </nav>
+
+        {/* Dedicated Partner Application Window */}
+        <div className="flex-1 max-w-3xl w-full mx-auto px-6 py-12">
+          {partnerStep === 'form' ? (
+            <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm">
+              <div className="mb-8">
+                <span className="text-sm font-bold tracking-wider uppercase text-gray-400">Join the Ecosystem</span>
+                <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-2">
+                  Become a Haven Partner
+                </h2>
+                <p className="text-gray-500 text-sm mt-2">
+                  Earn more with regular work, fast digital payouts, and professional recognition. Submit your profile below.
+                </p>
+              </div>
+
+              <form onSubmit={handlePartnerSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Full Name</label>
+                    <div className="relative">
+                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <input 
+                        type="text" required name="name" value={partnerData.name} onChange={handlePartnerInputChange}
+                        placeholder="Your name" 
+                        className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">WhatsApp / Phone Number</label>
+                    <div className="relative">
+                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <input 
+                        type="tel" required name="phone" value={partnerData.phone} onChange={handlePartnerInputChange}
+                        placeholder="Contact number" 
+                        className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Primary Trade / Skill</label>
+                    <div className="relative">
+                      <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <select 
+                        name="trade" value={partnerData.trade} onChange={handlePartnerInputChange}
+                        className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all appearance-none"
+                      >
+                        <option>Electrical</option>
+                        <option>Plumbing</option>
+                        <option>Carpentry</option>
+                        <option>Painting</option>
+                        <option>AC Repair</option>
+                        <option>Appliance Maintenance</option>
+                        <option>Cleaning Services</option>
+                        <option>Other Service</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Years of Experience</label>
+                    <div className="relative">
+                      <Settings className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <select 
+                        name="experience" value={partnerData.experience} onChange={handlePartnerInputChange}
+                        className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all appearance-none"
+                      >
+                        <option>Under 1 Year</option>
+                        <option>1-3 Years</option>
+                        <option>3-5 Years</option>
+                        <option>5+ Years</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Current City / Preferred Operating Area</label>
+                  <div className="relative">
+                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <input 
+                      type="text" required name="location" value={partnerData.location} onChange={handlePartnerInputChange}
+                      placeholder="e.g. Indiranagar, Bengaluru or South Delhi" 
+                      className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all"
+                    />
+                  </div>
+                </div>
+
+                <button 
+                  type="submit"
+                  className="w-full bg-black text-white py-4 rounded-2xl font-medium text-base hover:bg-gray-800 transition-colors shadow-sm mt-4 flex items-center justify-center gap-2"
+                >
+                  Submit Application <ArrowRight className="w-5 h-5" />
+                </button>
+              </form>
+            </div>
+          ) : (
+            /* Partner application success screen */
+            <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm text-center flex flex-col items-center">
+              <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mb-6">
+                <CheckCircle2 className="w-10 h-10" />
+              </div>
+              <h2 className="text-3xl font-medium text-black tracking-tight mb-2">Application Received!</h2>
+              <p className="text-gray-500 text-sm max-w-md mb-8 leading-relaxed">
+                Thank you, <span className="font-semibold text-black">{partnerData.name}</span>. Your details have been parsed inside our workforce management engine. A onboarding manager will reach out to <span className="font-semibold text-black">{partnerData.phone}</span> within 24-48 hours to complete verification.
+              </p>
+
+              <div className="w-full bg-[#F5F5F5] rounded-2xl p-6 text-left mb-8 text-sm space-y-2 max-w-md">
+                <div className="flex justify-between"><span className="text-gray-500">Registered Trade:</span> <span className="font-medium">{partnerData.trade}</span></div>
+                <div className="flex justify-between"><span className="text-gray-500">Experience Track:</span> <span className="font-medium">{partnerData.experience}</span></div>
+                <div className="flex justify-between"><span className="text-gray-500">Operation Hub:</span> <span className="font-medium">{partnerData.location}</span></div>
+              </div>
+
+              <button 
+                onClick={handleBackToHome}
+                className="bg-black text-white text-sm font-medium px-8 py-3 rounded-full hover:bg-gray-800 transition-colors"
+              >
+                Return to Home Screen
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  /* =========================================================================
+     VIEW MODE 2: CUSTOMER BOOKING ENGINE SCREEN
+     ========================================================================= */
   if (selectedService) {
     return (
       <div className="bg-[#F5F5F5] min-h-screen text-black flex flex-col font-sans">
@@ -235,7 +419,9 @@ export default function App() {
     );
   }
 
-  // Render the Main Landing Page View
+  /* =========================================================================
+     VIEW MODE 3: LANDING PAGE TRACK
+     ========================================================================= */
   return (
     <main className="flex flex-col bg-[#F5F5F5] min-h-screen">
       
@@ -264,9 +450,10 @@ export default function App() {
               <a href="#why-haven" className="hover:text-black transition-colors duration-200">Why Haven</a>
               <a href="#ecosystem" className="hover:text-black transition-colors duration-200">Ecosystem</a>
               <a href="#partnerships" className="hover:text-black transition-colors duration-200">Partnerships</a>
+              <button onClick={handlePartnerClick} className="text-gray-700 hover:text-black transition-colors duration-200 font-medium">Become a Partner</button>
             </div>
 
-            <div className="hidden md:block">
+            <div className="hidden md:flex items-center gap-4">
               <button 
                 onClick={() => handleServiceClick('General Maintenance')}
                 className="bg-black text-white text-base font-medium px-7 py-2.5 rounded-full hover:bg-gray-800 transition-colors duration-200"
@@ -292,8 +479,14 @@ export default function App() {
               <a href="#ecosystem" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-800 hover:text-black">Ecosystem</a>
               <a href="#partnerships" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-800 hover:text-black">Partnerships</a>
               <button 
+                onClick={() => { setIsMobileMenuOpen(false); handlePartnerClick(); }} 
+                className="text-left text-lg font-medium text-gray-800 hover:text-black border-t border-gray-100 pt-3"
+              >
+                Become a Partner
+              </button>
+              <button 
                 onClick={() => { setIsMobileMenuOpen(false); handleServiceClick('General Maintenance'); }}
-                className="mt-4 bg-black text-white text-base font-medium px-7 py-3 rounded-full hover:bg-gray-800 text-center"
+                className="mt-2 bg-black text-white text-base font-medium px-7 py-3 rounded-full hover:bg-gray-800 text-center"
               >
                 Join Waitlist
               </button>
@@ -335,12 +528,20 @@ export default function App() {
                 Connecting households with trusted skilled professionals through technology, reliability, and hyperlocal services.
               </p>
               
-              <a href="#services" className="inline-flex items-center gap-3 bg-black text-white text-base md:text-lg font-medium pl-8 pr-2 py-2 rounded-full hover:bg-gray-800 transition-colors duration-200 group">
-                Explore Services
-                <div className="bg-white rounded-full p-2">
-                  <ArrowRight className="w-5 h-5 text-black" />
-                </div>
-              </a>
+              <div className="flex flex-wrap gap-4">
+                <a href="#services" className="inline-flex items-center gap-3 bg-black text-white text-base md:text-lg font-medium pl-8 pr-2 py-2 rounded-full hover:bg-gray-800 transition-colors duration-200 group">
+                  Explore Services
+                  <div className="bg-white rounded-full p-2">
+                    <ArrowRight className="w-5 h-5 text-black" />
+                  </div>
+                </a>
+                <button 
+                  onClick={handlePartnerClick}
+                  className="bg-white/40 backdrop-blur-md text-black border border-black/15 text-base md:text-lg font-medium px-8 py-3 rounded-full hover:bg-white/60 transition-colors duration-200"
+                >
+                  Join as Partner
+                </button>
+              </div>
 
               {/* Hero Marquee */}
               <div className="mt-auto md:mt-24 w-full max-w-md overflow-hidden mask-fade-edges">
@@ -564,6 +765,22 @@ export default function App() {
             </div>
           </div>
 
+          {/* New Dynamic Callout Banner Box for Recruits */}
+          <div className="mt-12 bg-black text-white rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
+            <div>
+              <h3 className="text-2xl md:text-3xl font-medium tracking-tight mb-3">Grow Your Earnings as a Haven Partner</h3>
+              <p className="text-white/60 text-sm md:text-base max-w-2xl leading-relaxed">
+                Are you an experienced electrician, plumber, technician, or painter? Join India's most trusted skilled-service ecosystem. Get regular hyperlocal bookings, transparent digital payouts, and professional recognition.
+              </p>
+            </div>
+            <button 
+              onClick={handlePartnerMode ? handleBackToHome : handlePartnerClick}
+              className="shrink-0 bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-gray-200 transition-colors inline-flex items-center gap-2 text-sm md:text-base shadow-sm"
+            >
+              Apply as Partner <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+
         </div>
       </section>
 
@@ -586,7 +803,8 @@ export default function App() {
             <p>Domain: <a href="https://gethaven.in" className="text-white hover:underline">gethaven.in</a></p>
             <p>Instagram: <a href="https://instagram.com/gofor.haven" className="text-white hover:underline">@gofor.haven</a></p>
             <p>X/Twitter: <a href="https://twitter.com/goforhaven" className="text-white hover:underline">@goforhaven</a></p>
-            <p className="mt-8 text-white/40">© 2026 Haven. All rights reserved.</p>
+            <p className="mt-4"><button onClick={handlePartnerClick} className="text-white underline hover:text-gray-300 font-medium">Partner Registration Portal</button></p>
+            <p className="mt-4 text-white/40">© 2026 Haven. All rights reserved.</p>
           </div>
         </div>
       </footer>
