@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { 
   ArrowRight, Menu, X, Wrench, Zap, Hammer, PaintRoller, 
   Sparkles, Fan, Settings, Droplets, CheckCircle2, 
-  ChevronLeft, Calendar, Clock, User, Phone, MapPin, MessageSquare, Briefcase,
-  Shield
+  ChevronLeft, Shield
 } from 'lucide-react';
 
 const LogoIcon = ({ className }) => (
@@ -117,6 +116,9 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // -------------------------------------------------------------
+  // PARTNER REGISTRATION PAGE
+  // -------------------------------------------------------------
   if (isPartnerMode) {
     return (
       <div className="bg-[#F5F5F5] min-h-screen text-black flex flex-col font-sans">
@@ -134,7 +136,6 @@ export default function App() {
         </nav>
 
         <div className="flex-1 max-w-3xl w-full mx-auto px-6 py-12">
-          {/* ... (Partner form remains identical) ... */}
           {partnerStep === 'form' ? (
             <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm">
               <div className="mb-8">
@@ -143,6 +144,43 @@ export default function App() {
                 <p className="text-gray-500 text-sm mt-2">Earn more with regular work, fast digital payouts, and professional recognition. Submit your profile below.</p>
               </div>
               <form onSubmit={handlePartnerSubmit} className="space-y-6">
+                
+                {/* Fully Restored Partner Form Fields */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                    <input type="text" name="name" value={partnerData.name} onChange={handlePartnerInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all" placeholder="Enter your full name" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                    <input type="tel" name="phone" value={partnerData.phone} onChange={handlePartnerInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all" placeholder="+91 98765 43210" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Primary Trade / Skill</label>
+                    <select name="trade" value={partnerData.trade} onChange={handlePartnerInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all bg-white">
+                      <option>Electrical</option>
+                      <option>Plumbing</option>
+                      <option>Carpentry</option>
+                      <option>Painting</option>
+                      <option>AC & Appliance Repair</option>
+                      <option>Cleaning & Janitorial</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Experience Level</label>
+                    <select name="experience" value={partnerData.experience} onChange={handlePartnerInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all bg-white">
+                      <option>0-1 Years (Trainee)</option>
+                      <option>1-3 Years (Junior)</option>
+                      <option>3-5 Years (Professional)</option>
+                      <option>5+ Years (Master)</option>
+                    </select>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Service City / Area</label>
+                    <input type="text" name="location" value={partnerData.location} onChange={handlePartnerInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all" placeholder="E.g., Bandra West, Mumbai" />
+                  </div>
+                </div>
+
                 <button type="submit" className="w-full bg-black text-white py-4 rounded-2xl font-medium text-base hover:bg-gray-800 transition-colors shadow-sm mt-4 flex items-center justify-center gap-2">
                   Submit Application <ArrowRight className="w-5 h-5" />
                 </button>
@@ -154,6 +192,7 @@ export default function App() {
                 <CheckCircle2 className="w-10 h-10" />
               </div>
               <h2 className="text-3xl font-medium text-black tracking-tight mb-2">Application Received!</h2>
+              <p className="text-gray-500 mb-8 max-w-md">Our onboarding team will review your profile and contact you within 24-48 hours with next steps.</p>
               <button onClick={handleBackToHome} className="bg-black text-white text-sm font-medium px-8 py-3 rounded-full hover:bg-gray-800 transition-colors">Return to Home Screen</button>
             </div>
           )}
@@ -162,6 +201,9 @@ export default function App() {
     );
   }
 
+  // -------------------------------------------------------------
+  // SERVICE BOOKING PAGE
+  // -------------------------------------------------------------
   if (selectedService) {
     return (
       <div className="bg-[#F5F5F5] min-h-screen text-black flex flex-col font-sans">
@@ -179,7 +221,6 @@ export default function App() {
         </nav>
 
         <div className="flex-1 max-w-3xl w-full mx-auto px-6 py-12">
-          {/* ... (Booking form remains identical) ... */}
           {bookingStep === 'form' ? (
             <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm">
               <div className="mb-8">
@@ -187,7 +228,40 @@ export default function App() {
                 <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-2">Request {selectedService} Expert</h2>
               </div>
               <form onSubmit={handleFormSubmit} className="space-y-6">
-                 <button type="submit" className="w-full bg-black text-white py-4 rounded-2xl font-medium text-base hover:bg-gray-800 transition-colors shadow-sm mt-4 flex items-center justify-center gap-2">
+                
+                {/* Fully Restored Booking Form Fields */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                    <input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all" placeholder="Enter your full name" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all" placeholder="+91 98765 43210" />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Service Address</label>
+                    <textarea name="address" value={formData.address} onChange={handleInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all" rows="2" placeholder="House/Flat No., Street, Area, City" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Date</label>
+                    <input type="date" name="date" value={formData.date} onChange={handleInputChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Time Slot</label>
+                    <select name="timeSlot" value={formData.timeSlot} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all bg-white">
+                      <option>Morning (9 AM - 12 PM)</option>
+                      <option>Afternoon (12 PM - 3 PM)</option>
+                      <option>Evening (3 PM - 6 PM)</option>
+                    </select>
+                  </div>
+                  <div className="md:col-span-2">
+                     <label className="block text-sm font-medium text-gray-700 mb-2">Issue Details (Optional)</label>
+                     <textarea name="notes" value={formData.notes} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all" rows="3" placeholder="Describe the issue briefly so the professional can prepare..." />
+                  </div>
+                </div>
+
+                <button type="submit" className="w-full bg-black text-white py-4 rounded-2xl font-medium text-base hover:bg-gray-800 transition-colors shadow-sm mt-4 flex items-center justify-center gap-2">
                   Confirm Appointment Request <ArrowRight className="w-5 h-5" />
                 </button>
               </form>
@@ -198,6 +272,7 @@ export default function App() {
                 <CheckCircle2 className="w-10 h-10" />
               </div>
               <h2 className="text-3xl font-medium text-black tracking-tight mb-2">Request Submitted Successfully!</h2>
+              <p className="text-gray-500 mb-8 max-w-md">A verified professional will be assigned to your request shortly. You will receive an SMS confirmation.</p>
               <button onClick={handleBackToHome} className="bg-black text-white text-sm font-medium px-8 py-3 rounded-full hover:bg-gray-800 transition-colors">Return to Home Screen</button>
             </div>
           )}
@@ -206,6 +281,9 @@ export default function App() {
     );
   }
 
+  // -------------------------------------------------------------
+  // MAIN LANDING PAGE
+  // -------------------------------------------------------------
   return (
     <main className="flex flex-col bg-[#F5F5F5] min-h-screen">
       
@@ -258,12 +336,12 @@ export default function App() {
           </div>
         </nav>
 
-        {/* Hero Section (Restored Pinkish-Violet Theme + Unfiltered 4K Video) */}
+        {/* Hero Section (Restored Pinkish-Violet Theme + Fixed Reliable Video) */}
         <section id="home" className="flex-1 px-6 pt-28 lg:pt-20 pb-6 flex items-center w-full">
-          <div className="relative w-full rounded-3xl bg-gradient-to-tr from-[#FDF2F8] via-[#F4EFFF] to-[#F5F3FF] border border-purple-100/50 p-8 md:p-12 lg:h-[calc(100vh-96px)] flex flex-col lg:flex-row justify-between items-center gap-12 overflow-hidden shadow-sm">
+          <div className="relative w-full h-full rounded-3xl bg-gradient-to-tr from-[#FDF2F8] via-[#F4EFFF] to-[#F5F3FF] border border-purple-100/50 flex flex-col lg:flex-row justify-between items-center shadow-sm overflow-hidden">
             
             {/* Left Content Column */}
-            <div className="relative z-20 flex flex-col items-start max-w-xl">
+            <div className="relative z-20 flex flex-col items-start w-full lg:w-[55%] p-8 md:p-12">
               <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/60 border border-purple-200/50 text-purple-900 font-semibold text-xs tracking-wide mb-8 shadow-sm backdrop-blur-sm">
                 Coming soon to your neighbourhood
               </span>
@@ -309,28 +387,27 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right Media Section - High Fidelity 4K Live Action Video */}
-            <div className="absolute inset-y-0 right-0 w-full lg:w-[50%] h-full pointer-events-none z-10 flex items-end justify-end">
+            {/* Right Media Section - Fixed Video Source and Layout */}
+            <div className="absolute inset-y-0 right-0 w-full lg:w-[50%] h-full z-0 hidden lg:flex items-center justify-center">
               
-              {/* Soft Gradient Mask to blend the video into the pinkish-violet UI */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#F4EFFF] via-[#F4EFFF]/30 to-transparent z-10"></div>
-              
-              {/* VIDEO LAYER: Unfiltered, full opacity 4K placeholder video */}
+              {/* Fade Gradient to seamlessly blend left UI color into right video */}
+              <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#F4EFFF] to-transparent z-10 pointer-events-none"></div>
+
+              {/* Reliable Pexels Video Source with poster fallback */}
               <video 
                 autoPlay 
                 loop 
                 muted 
                 playsInline
+                poster="https://images.pexels.com/photos/8470875/pexels-photo-8470875.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                 className="w-full h-full object-cover object-center z-0"
               >
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-electrician-working-on-a-fuse-box-42232-large.mp4" type="video/mp4" />
+                <source src="https://videos.pexels.com/video-files/4482937/4482937-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+                <source src="https://videos.pexels.com/video-files/8470875/8470875-uhd_2160_4096_25fps.mp4" type="video/mp4" />
               </video>
 
-              {/* Claymorphic 3D UI Fluid Overlay Base Mask to anchor the bottom edge seamlessly */}
-              <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#F5F3FF] via-[#F5F3FF]/80 to-transparent pointer-events-none z-10"></div>
-
               {/* Floating Aesthetic Blueprint Equipment Indicators */}
-              <div className="absolute top-[28%] right-[15%] ambient-tool-float hidden lg:flex bg-white/85 backdrop-blur-xl border border-white/40 rounded-2xl p-3 items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] z-20">
+              <div className="absolute top-[28%] right-[15%] ambient-tool-float bg-white/90 backdrop-blur-xl border border-white/40 rounded-2xl p-3 flex items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] z-20">
                 <div className="p-2 bg-purple-100 text-purple-700 rounded-xl">
                   <Wrench className="w-4 h-4" />
                 </div>
@@ -340,7 +417,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="absolute bottom-[20%] right-[42%] ambient-tool-float hidden lg:flex bg-white/85 backdrop-blur-xl border border-white/40 rounded-2xl p-3 items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] z-20" style={{ animationDelay: '1.5s' }}>
+              <div className="absolute bottom-[20%] right-[42%] ambient-tool-float bg-white/90 backdrop-blur-xl border border-white/40 rounded-2xl p-3 flex items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] z-20" style={{ animationDelay: '1.5s' }}>
                 <div className="p-2 bg-amber-50 text-amber-600 rounded-xl">
                   <Settings className="w-4 h-4" />
                 </div>
