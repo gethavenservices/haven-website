@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   ArrowRight, Menu, X, Wrench, Zap, Hammer, PaintRoller, 
   Sparkles, Fan, Settings, Droplets, CheckCircle2, 
@@ -55,6 +55,9 @@ export default function App() {
   const [bookingStep, setBookingStep] = useState('form'); 
   const [isPartnerMode, setIsPartnerMode] = useState(false);
   const [partnerStep, setPartnerStep] = useState('form'); 
+  
+  // Ref to target the video element directly
+  const videoRef = useRef(null);
 
   const [formData, setFormData] = useState({
     name: '', phone: '', address: '', date: '', timeSlot: 'Morning (9 AM - 12 PM)', notes: ''
@@ -63,6 +66,15 @@ export default function App() {
   const [partnerData, setPartnerData] = useState({
     name: '', phone: '', trade: 'Electrical', experience: '1-3 Years', location: ''
   });
+
+  // Force video playback on mount to bypass strict browser autoplay policies
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.warn("Autoplay was prevented by the browser:", error);
+      });
+    }
+  }, []);
 
   const handleInputChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   const handlePartnerInputChange = (e) => setPartnerData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -293,20 +305,19 @@ export default function App() {
           <div className="relative w-full h-full min-h-[580px] lg:h-[calc(100vh-96px)] rounded-3xl flex flex-col justify-center items-start shadow-sm overflow-hidden bg-[#EAE8F0] border border-black/5">
             
             {/* 
-              VIDEO FIX: Added 'poster' attribute. 
-              If the .mp4 fails to load due to browser tracking protection or dead link, 
-              this high-quality professional image will load seamlessly in its place. 
+              VIDEO FIX: Added ref, and moved src directly to the video element. 
+              This combination bypasses React component mounting bugs that block autoplay. 
             */}
             <video 
+              ref={videoRef}
               autoPlay 
               loop 
               muted 
               playsInline
+              src="https://assets.mixkit.co/videos/preview/mixkit-electrician-working-on-a-switchboard-42283-large.mp4"
               poster="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop"
               className="absolute inset-0 w-full h-full object-cover z-0 object-center"
-            >
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-electrician-working-on-a-switchboard-42283-large.mp4" type="video/mp4" />
-            </video>
+            />
 
             <div className="absolute inset-0 bg-gradient-to-r from-[#F5F5F5] via-[#F5F5F5]/95 md:via-[#F5F5F5]/70 to-transparent z-10 pointer-events-none"></div>
 
@@ -591,7 +602,7 @@ export default function App() {
             <p>Instagram: <a href="https://instagram.com/gofor.haven" className="text-white hover:underline">@gofor.haven</a></p>
             <p>X/Twitter: <a href="https://twitter.com/goforhaven" className="text-white hover:underline">@goforhaven</a></p>
             <p className="mt-4"><button onClick={handlePartnerClick} className="text-white underline hover:text-gray-300 font-medium">Partner Registration Portal</button></p>
-            <p className="mt-4 text-white/40">© 2026 Haven Hyperlocal Services. All rights reserved.</p>
+            <p className="mt-4 text-white/40">© 2026 Haven. All rights reserved.</p>
           </div>
         </div>
       </footer>
