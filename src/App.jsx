@@ -3,7 +3,7 @@ import {
   ArrowRight, Menu, X, Wrench, Zap, Hammer, PaintRoller, 
   Sparkles, Fan, Settings, Droplets, CheckCircle2, 
   ChevronLeft, Calendar, Clock, User, Phone, MapPin, MessageSquare, Briefcase,
-  Shield, Radio, Activity
+  Shield
 } from 'lucide-react';
 
 const LogoIcon = ({ className }) => (
@@ -415,15 +415,9 @@ export default function App() {
         .backers-track { display: flex; width: max-content; animation: backers-marquee 30s linear infinite; }
         @keyframes backers-marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
         
-        /* Floating CSS Animation Cards for Hyperlocal Showcase */
-        @keyframes float-slow-1 { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-10px) scale(1.02); } }
-        @keyframes float-slow-2 { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-15px) scale(0.99); } }
-        @keyframes float-slow-3 { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-8px) scale(1.01); } }
-        .float-card-1 { animation: float-slow-1 6s ease-in-out infinite; }
-        .float-card-2 { animation: float-slow-2 8s ease-in-out infinite; }
-        .float-card-3 { animation: float-slow-3 7s ease-in-out infinite; }
-        .pulse-soft { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+        /* Smooth float loops for premium tool graphics overlays */
+        @keyframes subtle-float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
+        .ambient-tool-float { animation: subtle-float 6s ease-in-out infinite; }
       `}} />
 
       {/* 1. Navbar & Hero Section Wrapper */}
@@ -484,57 +478,50 @@ export default function App() {
           )}
         </nav>
 
-        {/* Hero Content (Replaced Crypto Video with Clean, Interactive UI Engine Panels) */}
+        {/* Hero Section (Aesthetic Restoration to matching Screenshot 2026-05-28 174822.jpg) */}
         <section id="home" className="flex-1 px-6 pt-28 lg:pt-20 pb-6 flex items-center w-full">
-          <div className="relative w-full rounded-3xl bg-gradient-to-tr from-gray-100 via-white to-gray-50 border border-black/5 p-8 md:p-12 lg:h-[calc(100vh-96px)] flex flex-col lg:flex-row justify-between items-center gap-12 overflow-hidden shadow-sm">
-            
-            {/* Ambient Background Grid Pattern */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'radial-gradient(circle, #000 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}></div>
+          <div className="relative w-full rounded-3xl bg-gradient-to-tr from-[#EAE8F0] via-[#FAF9FC] to-[#F1EFF7] border border-black/5 p-8 md:p-12 lg:h-[calc(100vh-96px)] flex flex-col lg:flex-row justify-between items-center gap-12 overflow-hidden shadow-sm">
             
             {/* Left Content Column */}
-            <div className="relative z-10 flex flex-col items-start max-w-xl">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/[0.04] border border-black/5 text-black font-medium text-sm mb-6">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-soft"></span> Hyperlocal Operations Live
+            <div className="relative z-20 flex flex-col items-start max-w-xl">
+              <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-black/[0.03] border border-black/10 text-gray-600 font-medium text-xs tracking-wide mb-8">
+                Coming soon to your neighbourhood
               </span>
               
               <h1 
-                className="text-black text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.1] mb-5 text-left"
+                className="text-black text-4xl md:text-5xl lg:text-[3.5rem] font-medium leading-[1.12] mb-6 text-left"
                 style={{ letterSpacing: '-0.04em' }}
               >
-                Haven — India’s Trusted<br />Skilled-Service Ecosystem
+                Haven — India’s<br />Trusted<br />Skilled-Service<br />Ecosystem
               </h1>
               
               <p 
-                className="text-gray-600 text-base md:text-lg mb-8 leading-relaxed text-left"
+                className="text-gray-600 text-sm md:text-base mb-8 leading-relaxed text-left max-w-md"
                 style={{ fontFamily: "'Inter', ui-sans-serif, system-ui, sans-serif" }}
               >
-                Connecting modern households with premium, background-verified professionals through proprietary workforce engineering and rapid tracking.
+                Connecting households with trusted skilled professionals through technology, reliability, and hyperlocal services.
               </p>
               
               <div className="flex flex-wrap gap-4 w-full sm:w-auto">
-                <a href="#services" className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-4 bg-black text-white text-base font-medium pl-8 pr-2 py-2 rounded-full hover:bg-gray-800 transition-colors duration-200 group">
+                <a href="#services" className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-4 bg-black text-white text-sm font-medium pl-6 pr-1.5 py-1.5 rounded-full hover:bg-gray-800 transition-colors duration-200 group">
                   Explore Services
                   <div className="bg-white rounded-full p-2">
-                    <ArrowRight className="w-4 h-4 text-black" />
+                    <ArrowRight className="w-3.5 h-3.5 text-black" />
                   </div>
                 </a>
                 <button 
                   onClick={handlePartnerClick}
-                  className="w-full sm:w-auto bg-white text-black border border-black/10 text-base font-medium px-8 py-3 rounded-full hover:bg-gray-50 transition-colors duration-200 shadow-sm"
+                  className="w-full sm:w-auto bg-white/40 backdrop-blur-sm text-black border border-black/10 text-sm font-medium px-7 py-3 rounded-full hover:bg-white/60 transition-colors duration-200"
                 >
                   Join as Partner
                 </button>
               </div>
 
-              {/* Infinite Marquee */}
-              <div className="mt-12 lg:mt-24 w-full overflow-hidden mask-fade-edges">
+              {/* Infinite Marquee text background layer */}
+              <div className="mt-12 lg:mt-20 w-full overflow-hidden opacity-40">
                 <div className="marquee-track">
                   {[...serviceMarquee, ...serviceMarquee].map((brand, idx) => (
-                    <span 
-                      key={idx} 
-                      className="mx-6 shrink-0 text-black/40 whitespace-nowrap"
-                      style={brand.style}
-                    >
+                    <span key={idx} className="mx-6 shrink-0 text-black/30 whitespace-nowrap" style={brand.style}>
                       {brand.name}
                     </span>
                   ))}
@@ -542,65 +529,49 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right Graphics Column - The Real-time Hyperlocal Operations Visualization */}
-            <div className="relative w-full lg:w-1/2 h-[340px] lg:h-full flex items-center justify-center">
-              <div className="absolute inset-0 bg-radial-gradient from-gray-200/50 to-transparent filter blur-2xl rounded-full opacity-60"></div>
+            {/* Right Media Section - Formatted for your 3D Professional Animation Video Loop */}
+            <div className="absolute inset-y-0 right-0 w-full lg:w-[55%] h-full pointer-events-none z-10 flex items-end justify-end">
               
-              {/* Dynamic Dispatch Card Network UI */}
-              <div className="relative w-full max-w-sm space-y-4">
-                
-                {/* Floating Active Job Status Card 1 */}
-                <div className="float-card-1 bg-white border border-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl p-5 flex items-start gap-4 relative z-20">
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-                    <Zap className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-0.5">
-                      <h4 className="text-sm font-semibold text-black truncate">Electrical Maintenance</h4>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 flex items-center gap-1">
-                        <Radio className="w-2 h-2 text-amber-500 pulse-soft" /> En Route
-                      </span>
-                    </div>
-                    <p className="text-xs text-gray-400">Hub: Indiranagar Sector-4</p>
-                    <div className="w-full bg-gray-100 h-1 rounded-full mt-3 overflow-hidden">
-                      <div className="bg-amber-500 h-full w-2/3 rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
+              {/* VIDEO LAYER STAGE: Drop your optimized 3D render mp4 link here */}
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+                className="w-full h-full object-cover object-center lg:object-right-bottom mix-blend-multiply opacity-90 select-none"
+                poster="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=80"
+              >
+                {/* 
+                  When your 3D animation video asset of the professional fixing household problems is ready,
+                  replace the line below with your video asset path: src="/assets/3d-mechanic-repair.mp4"
+                */}
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-handyman-with-a-tool-belt-adjusting-a-wrench-42240-large.mp4" type="video/mp4" />
+              </video>
 
-                {/* Floating Active Job Status Card 2 */}
-                <div className="float-card-2 bg-white border border-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl p-5 flex items-start gap-4 relative z-10 translate-x-4">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                    <Droplets className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-0.5">
-                      <h4 className="text-sm font-semibold text-black truncate">Hyperlocal Plumbing</h4>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 flex items-center gap-1">
-                        <CheckCircle2 className="w-2 h-2 text-emerald-500" /> Resolved
-                      </span>
-                    </div>
-                    <p className="text-xs text-gray-400">Partner: Vinay Kumar (Verified)</p>
-                    <p className="text-[11px] text-gray-500 mt-2 italic">“Main pipeline leakage plugged within 22 minutes.”</p>
-                  </div>
-                </div>
+              {/* Claymorphic 3D UI Fluid Overlay Base Mask to match the lavender flora framing at the bottom of Screenshot 2026-05-28 174822.jpg */}
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FAF9FC] via-[#FAF9FC]/60 to-transparent pointer-events-none"></div>
 
-                {/* Floating Active Job Status Card 3 */}
-                <div className="float-card-3 bg-white border border-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl p-5 flex items-start gap-4 relative z-0 -translate-x-2">
-                  <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
-                    <Activity className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-0.5">
-                      <h4 className="text-sm font-semibold text-black truncate">Ecosystem Engine Monitoring</h4>
-                    </div>
-                    <p className="text-xs text-gray-500 flex items-center gap-1.5 mt-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 142 Active Technicians Nearby
-                    </p>
-                  </div>
+              {/* Floating Aesthetic Blueprint Equipment Indicators */}
+              <div className="absolute top-[28%] right-[15%] ambient-tool-float hidden lg:flex bg-white/70 backdrop-blur-md border border-black/5 rounded-2xl p-3 items-center gap-3 shadow-sm">
+                <div className="p-2 bg-purple-100 text-purple-700 rounded-xl">
+                  <Wrench className="w-4 h-4" />
                 </div>
-
+                <div className="text-left pr-2">
+                  <p className="text-[11px] font-bold text-black uppercase tracking-wider">Calibrating</p>
+                  <p className="text-xs text-gray-500 font-medium">System Alignment</p>
+                </div>
               </div>
+
+              <div className="absolute bottom-[20%] right-[42%] ambient-tool-float hidden lg:flex bg-white/70 backdrop-blur-md border border-black/5 rounded-2xl p-3 items-center gap-3 shadow-sm" style={{ animationDelay: '1.5s' }}>
+                <div className="p-2 bg-amber-100 text-amber-700 rounded-xl">
+                  <Settings className="w-4 h-4" />
+                </div>
+                <div className="text-left pr-2">
+                  <p className="text-[11px] font-bold text-black uppercase tracking-wider">Resolution Engine</p>
+                  <p className="text-xs text-gray-500 font-medium">Precision Tuning</p>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -645,10 +616,7 @@ export default function App() {
         <div className="max-w-[88rem] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 items-start">
             <div>
-              <h2 
-                className="text-black text-4xl md:text-5xl font-medium leading-tight mb-8"
-                style={{ letterSpacing: '-0.03em' }}
-              >
+              <h2 className="text-black text-4xl md:text-5xl font-medium leading-tight mb-8" style={{ letterSpacing: '-0.03em' }}>
                 Meet Haven.
               </h2>
               <button 
@@ -677,10 +645,7 @@ export default function App() {
                 backgroundPosition: 'center'
               }}
             >
-              <h3 
-                className="text-black text-2xl font-medium leading-snug"
-                style={{ letterSpacing: '-0.02em' }}
-              >
+              <h3 className="text-black text-2xl font-medium leading-snug" style={{ letterSpacing: '-0.02em' }}>
                 Verified Professionals
               </h3>
               <p className="text-black/80 font-medium text-base max-w-xs">
@@ -709,17 +674,13 @@ export default function App() {
         </div>
       </section>
 
-      {/* 4. Ecosystem & Subscriptions Section (Replaced secondary Coin Video with dark command interface) */}
+      {/* 4. Ecosystem & Subscriptions Section */}
       <section id="ecosystem" className="bg-[#F5F5F5] px-6 py-24 w-full">
         <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
-          {/* Left Column */}
           <div className="md:pr-12 flex flex-col justify-center py-4">
             <span className="block text-black/60 text-sm mb-2 font-semibold tracking-wider uppercase">Subscription Ecosystem</span>
-            <h2 
-              className="text-black text-5xl md:text-6xl font-medium leading-none mb-6"
-              style={{ letterSpacing: '-0.04em' }}
-            >
+            <h2 className="text-black text-5xl md:text-6xl font-medium leading-none mb-6" style={{ letterSpacing: '-0.04em' }}>
               Smart Home Care
             </h2>
             <p className="text-black/60 text-base leading-relaxed max-w-sm mb-8">
@@ -739,18 +700,15 @@ export default function App() {
             </ul>
           </div>
 
-          {/* Right Column - Premium High-Velocity Emergency Operator Dashboard Box */}
+          {/* Premium Emergency Operator Dashboard Box */}
           <div className="relative rounded-3xl bg-black text-white p-8 md:p-12 flex flex-col justify-between overflow-hidden shadow-lg min-h-[440px]">
             <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, #FFF 1.5px, transparent 1.5px)', backgroundSize: '20px 20px' }}></div>
             
             <div className="relative z-10">
               <div className="flex items-center gap-2 text-rose-400 text-xs font-bold tracking-widest uppercase mb-6 bg-rose-500/10 px-3 py-1 rounded-full w-max border border-rose-500/20">
-                <Shield className="w-3 h-3 text-rose-500 pulse-soft" /> Hyperlocal Priority Desk
+                <Shield className="w-3 h-3 text-rose-500" /> Hyperlocal Priority Desk
               </div>
-              <h3 
-                className="text-white text-3xl md:text-4xl font-medium leading-tight mb-4"
-                style={{ letterSpacing: '-0.03em' }}
-              >
+              <h3 className="text-white text-3xl md:text-4xl font-medium leading-tight mb-4" style={{ letterSpacing: '-0.03em' }}>
                 Emergency Services
               </h3>
               <p className="text-gray-400 text-sm md:text-base max-w-md leading-relaxed">
@@ -758,7 +716,6 @@ export default function App() {
               </p>
             </div>
             
-            {/* Real-time Status tickers */}
             <div className="relative z-10 grid grid-cols-2 gap-4 bg-white/[0.03] border border-white/5 rounded-2xl p-4 my-6">
               <div>
                 <span className="text-[10px] uppercase font-bold tracking-wider text-gray-500 block">Avg Response Speed</span>
@@ -767,7 +724,7 @@ export default function App() {
               <div>
                 <span className="text-[10px] uppercase font-bold tracking-wider text-gray-500 block">Hub Dispatch Status</span>
                 <span className="text-xl font-bold tracking-tight text-emerald-400 mt-0.5 block flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block pulse-soft"></span> Operational
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> Operational
                 </span>
               </div>
             </div>
@@ -808,11 +765,7 @@ export default function App() {
             <div className="md:col-span-3 overflow-hidden">
               <div className="backers-track">
                 {[...backerBrands, ...backerBrands].map((brand, idx) => (
-                  <span 
-                    key={idx} 
-                    className="mx-10 shrink-0 text-black/50 whitespace-nowrap"
-                    style={brand.style}
-                  >
+                  <span key={idx} className="mx-10 shrink-0 text-black/50 whitespace-nowrap" style={brand.style}>
                     {brand.name}
                   </span>
                 ))}
