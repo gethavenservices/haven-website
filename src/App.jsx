@@ -318,16 +318,14 @@ export default function App() {
               PRODUCTION SETUP: Configured to look for a local video file.
               This guarantees the browser won't crash on cross-origin blocks.
             */}
-            <video 
-              ref={videoPlayerRef}
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              src="/background-video.mp4"
-              poster="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop"
-              className="absolute inset-0 w-full h-full object-cover z-0 object-center"
-            />
+              <video 
+  src="/background-video.mp4" 
+  autoPlay 
+  loop 
+  muted 
+  playsInline
+  className="your-styling-class-here"
+/>
 
             <div className="absolute inset-0 bg-gradient-to-r from-[#F5F5F5] via-[#F5F5F5]/95 md:via-[#F5F5F5]/70 to-transparent z-10 pointer-events-none"></div>
 
