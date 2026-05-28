@@ -304,21 +304,26 @@ export default function App() {
         <section id="home" className="flex-1 px-6 pt-28 lg:pt-20 pb-6 flex items-center w-full">
           <div className="relative w-full h-full min-h-[580px] lg:h-[calc(100vh-96px)] rounded-3xl flex flex-col justify-center items-start shadow-sm overflow-hidden bg-[#EAE8F0] border border-black/5">
             
-            {/* 
-              VIDEO FIX: Added ref, and moved src directly to the video element. 
-              This combination bypasses React component mounting bugs that block autoplay. 
+          {/* 
+              THE NUCLEAR FIX: Bypassing React's DOM rendering entirely.
+              This injects raw HTML to guarantee the browser registers 'muted', 
+              'autoplay', and 'playsinline' simultaneously, bypassing strict autoplay blocks. 
             */}
-            <video 
-              ref={videoRef}
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              src="https://assets.mixkit.co/videos/preview/mixkit-electrician-working-on-a-switchboard-42283-large.mp4"
-              poster="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop"
-              className="absolute inset-0 w-full h-full object-cover z-0 object-center"
+            <div 
+              className="absolute inset-0 w-full h-full z-0 pointer-events-none"
+              dangerouslySetInnerHTML={{ __html: `
+                <video 
+                  autoplay 
+                  loop 
+                  muted 
+                  playsinline
+                  poster="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop"
+                  style="width: 100%; height: 100%; object-fit: cover; object-position: center;"
+                >
+                  <source src="https://assets.mixkit.co/videos/preview/mixkit-electrician-working-on-a-switchboard-42283-large.mp4" type="video/mp4" />
+                </video>
+              `}}
             />
-
             <div className="absolute inset-0 bg-gradient-to-r from-[#F5F5F5] via-[#F5F5F5]/95 md:via-[#F5F5F5]/70 to-transparent z-10 pointer-events-none"></div>
 
             <div className="relative z-20 flex flex-col items-start max-w-xl p-8 md:p-12 lg:ml-6">
