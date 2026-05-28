@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { 
   ArrowRight, Menu, X, Wrench, Zap, Hammer, PaintRoller, 
   Sparkles, Fan, Settings, Droplets, CheckCircle2, 
-  ChevronLeft, Calendar, Clock, User, Phone, MapPin, MessageSquare, Briefcase
+  ChevronLeft, Calendar, Clock, User, Phone, MapPin, MessageSquare, Briefcase,
+  Shield, Radio, Activity
 } from 'lucide-react';
 
 const LogoIcon = ({ className }) => (
@@ -52,13 +53,11 @@ const servicesList = [
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
-  const [bookingStep, setBookingStep] = useState('form'); // 'form' or 'success'
+  const [bookingStep, setBookingStep] = useState('form'); 
   
-  // New States for "Become a Partner" Onboarding
   const [isPartnerMode, setIsPartnerMode] = useState(false);
-  const [partnerStep, setPartnerStep] = useState('form'); // 'form' or 'success'
+  const [partnerStep, setPartnerStep] = useState('form'); 
 
-  // Form State Values (Booking Engine)
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -68,7 +67,6 @@ export default function App() {
     notes: ''
   });
 
-  // Form State Values (Partner Application)
   const [partnerData, setPartnerData] = useState({
     name: '',
     phone: '',
@@ -119,13 +117,9 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  /* =========================================================================
-     VIEW MODE 1: PARTNER APPLICATION SCREEN
-     ========================================================================= */
   if (isPartnerMode) {
     return (
       <div className="bg-[#F5F5F5] min-h-screen text-black flex flex-col font-sans">
-        {/* Simple Top Navigation */}
         <nav className="w-full max-w-[88rem] mx-auto px-6 py-5 flex items-center justify-between border-b border-black/5 bg-white/80 backdrop-blur-md sticky top-0 z-30">
           <div onClick={handleBackToHome} className="flex items-center gap-3 cursor-pointer">
             <LogoIcon className="w-7 h-7 text-black" />
@@ -139,7 +133,6 @@ export default function App() {
           </button>
         </nav>
 
-        {/* Dedicated Partner Application Window */}
         <div className="flex-1 max-w-3xl w-full mx-auto px-6 py-12">
           {partnerStep === 'form' ? (
             <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm">
@@ -239,14 +232,13 @@ export default function App() {
               </form>
             </div>
           ) : (
-            /* Partner application success screen */
             <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm text-center flex flex-col items-center">
               <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mb-6">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
               <h2 className="text-3xl font-medium text-black tracking-tight mb-2">Application Received!</h2>
               <p className="text-gray-500 text-sm max-w-md mb-8 leading-relaxed">
-                Thank you, <span className="font-semibold text-black">{partnerData.name}</span>. Your details have been parsed inside our workforce management engine. A onboarding manager will reach out to <span className="font-semibold text-black">{partnerData.phone}</span> within 24-48 hours to complete verification.
+                Thank you, <span className="font-semibold text-black">{partnerData.name}</span>. Your details have been parsed inside our workforce management engine. An onboarding manager will reach out to <span className="font-semibold text-black">{partnerData.phone}</span> within 24-48 hours to complete verification.
               </p>
 
               <div className="w-full bg-[#F5F5F5] rounded-2xl p-6 text-left mb-8 text-sm space-y-2 max-w-md">
@@ -268,13 +260,9 @@ export default function App() {
     );
   }
 
-  /* =========================================================================
-     VIEW MODE 2: CUSTOMER BOOKING ENGINE SCREEN
-     ========================================================================= */
   if (selectedService) {
     return (
       <div className="bg-[#F5F5F5] min-h-screen text-black flex flex-col font-sans">
-        {/* Simple Top Navigation */}
         <nav className="w-full max-w-[88rem] mx-auto px-6 py-5 flex items-center justify-between border-b border-black/5 bg-white/80 backdrop-blur-md sticky top-0 z-30">
           <div onClick={handleBackToHome} className="flex items-center gap-3 cursor-pointer">
             <LogoIcon className="w-7 h-7 text-black" />
@@ -288,7 +276,6 @@ export default function App() {
           </button>
         </nav>
 
-        {/* Dynamic Booking Content Window */}
         <div className="flex-1 max-w-3xl w-full mx-auto px-6 py-12">
           {bookingStep === 'form' ? (
             <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm">
@@ -390,7 +377,6 @@ export default function App() {
               </form>
             </div>
           ) : (
-            /* Success confirmation screen */
             <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm text-center flex flex-col items-center">
               <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mb-6">
                 <CheckCircle2 className="w-10 h-10" />
@@ -419,9 +405,6 @@ export default function App() {
     );
   }
 
-  /* =========================================================================
-     VIEW MODE 3: LANDING PAGE TRACK
-     ========================================================================= */
   return (
     <main className="flex flex-col bg-[#F5F5F5] min-h-screen">
       
@@ -431,10 +414,20 @@ export default function App() {
         @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
         .backers-track { display: flex; width: max-content; animation: backers-marquee 30s linear infinite; }
         @keyframes backers-marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+        
+        /* Floating CSS Animation Cards for Hyperlocal Showcase */
+        @keyframes float-slow-1 { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-10px) scale(1.02); } }
+        @keyframes float-slow-2 { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-15px) scale(0.99); } }
+        @keyframes float-slow-3 { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-8px) scale(1.01); } }
+        .float-card-1 { animation: float-slow-1 6s ease-in-out infinite; }
+        .float-card-2 { animation: float-slow-2 8s ease-in-out infinite; }
+        .float-card-3 { animation: float-slow-3 7s ease-in-out infinite; }
+        .pulse-soft { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
       `}} />
 
       {/* 1. Navbar & Hero Section Wrapper */}
-      <div className="h-screen flex flex-col overflow-hidden w-full max-w-[88rem] mx-auto relative">
+      <div className="min-h-screen lg:h-screen flex flex-col overflow-hidden w-full max-w-[88rem] mx-auto relative mb-12 lg:mb-0">
         
         {/* Navbar */}
         <nav className="absolute top-0 left-0 right-0 z-50 px-6 py-5">
@@ -444,7 +437,6 @@ export default function App() {
               <span className="text-2xl font-medium tracking-tight text-black">Haven</span>
             </div>
             
-            {/* Desktop Links */}
             <div className="hidden md:flex items-center gap-8 text-base text-gray-700 font-medium">
               <a href="#services" className="hover:text-black transition-colors duration-200">Services</a>
               <a href="#why-haven" className="hover:text-black transition-colors duration-200">Why Haven</a>
@@ -462,7 +454,6 @@ export default function App() {
               </button>
             </div>
 
-            {/* Mobile Menu Toggle */}
             <button 
               className="md:hidden text-black p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -471,7 +462,6 @@ export default function App() {
             </button>
           </div>
 
-          {/* Mobile Dropdown */}
           {isMobileMenuOpen && (
             <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t border-gray-100 p-6 flex flex-col gap-4 z-50">
               <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-800 hover:text-black">Services</a>
@@ -494,62 +484,55 @@ export default function App() {
           )}
         </nav>
 
-        {/* Hero Content */}
-        <section id="home" className="flex-1 px-6 pt-20 pb-6 flex items-end w-full">
-          <div 
-            className="relative w-full rounded-2xl overflow-hidden" 
-            style={{ height: 'calc(100vh - 96px)' }}
-          >
-            <video 
-              autoPlay 
-              muted 
-              loop 
-              playsInline 
-              className="object-cover absolute inset-0 w-full h-full opacity-70"
-              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_161253_c72b1869-400f-45ed-ac0c-52f68c2ed5bd.mp4"
-            />
+        {/* Hero Content (Replaced Crypto Video with Clean, Interactive UI Engine Panels) */}
+        <section id="home" className="flex-1 px-6 pt-28 lg:pt-20 pb-6 flex items-center w-full">
+          <div className="relative w-full rounded-3xl bg-gradient-to-tr from-gray-100 via-white to-gray-50 border border-black/5 p-8 md:p-12 lg:h-[calc(100vh-96px)] flex flex-col lg:flex-row justify-between items-center gap-12 overflow-hidden shadow-sm">
             
-            <div className="relative z-10 flex flex-col items-start justify-start h-full p-8 md:p-12 pt-36">
-              <span className="inline-block px-4 py-1.5 rounded-full bg-black/5 backdrop-blur-md border border-black/10 text-black font-medium text-sm mb-6">
-                Coming soon to your neighbourhood
+            {/* Ambient Background Grid Pattern */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'radial-gradient(circle, #000 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}></div>
+            
+            {/* Left Content Column */}
+            <div className="relative z-10 flex flex-col items-start max-w-xl">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/[0.04] border border-black/5 text-black font-medium text-sm mb-6">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-soft"></span> Hyperlocal Operations Live
               </span>
               
               <h1 
-                className="text-black text-5xl md:text-6xl font-medium leading-tight max-w-xl mb-4"
+                className="text-black text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.1] mb-5 text-left"
                 style={{ letterSpacing: '-0.04em' }}
               >
                 Haven — India’s Trusted<br />Skilled-Service Ecosystem
               </h1>
               
               <p 
-                className="text-black/80 text-base md:text-lg max-w-md mb-8 leading-relaxed font-medium"
+                className="text-gray-600 text-base md:text-lg mb-8 leading-relaxed text-left"
                 style={{ fontFamily: "'Inter', ui-sans-serif, system-ui, sans-serif" }}
               >
-                Connecting households with trusted skilled professionals through technology, reliability, and hyperlocal services.
+                Connecting modern households with premium, background-verified professionals through proprietary workforce engineering and rapid tracking.
               </p>
               
-              <div className="flex flex-wrap gap-4">
-                <a href="#services" className="inline-flex items-center gap-3 bg-black text-white text-base md:text-lg font-medium pl-8 pr-2 py-2 rounded-full hover:bg-gray-800 transition-colors duration-200 group">
+              <div className="flex flex-wrap gap-4 w-full sm:w-auto">
+                <a href="#services" className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-4 bg-black text-white text-base font-medium pl-8 pr-2 py-2 rounded-full hover:bg-gray-800 transition-colors duration-200 group">
                   Explore Services
                   <div className="bg-white rounded-full p-2">
-                    <ArrowRight className="w-5 h-5 text-black" />
+                    <ArrowRight className="w-4 h-4 text-black" />
                   </div>
                 </a>
                 <button 
                   onClick={handlePartnerClick}
-                  className="bg-white/40 backdrop-blur-md text-black border border-black/15 text-base md:text-lg font-medium px-8 py-3 rounded-full hover:bg-white/60 transition-colors duration-200"
+                  className="w-full sm:w-auto bg-white text-black border border-black/10 text-base font-medium px-8 py-3 rounded-full hover:bg-gray-50 transition-colors duration-200 shadow-sm"
                 >
                   Join as Partner
                 </button>
               </div>
 
-              {/* Hero Marquee */}
-              <div className="mt-auto md:mt-24 w-full max-w-md overflow-hidden mask-fade-edges">
-                <div className="marquee-track pt-12 md:pt-0">
+              {/* Infinite Marquee */}
+              <div className="mt-12 lg:mt-24 w-full overflow-hidden mask-fade-edges">
+                <div className="marquee-track">
                   {[...serviceMarquee, ...serviceMarquee].map((brand, idx) => (
                     <span 
                       key={idx} 
-                      className="mx-7 shrink-0 text-black/60 whitespace-nowrap"
+                      className="mx-6 shrink-0 text-black/40 whitespace-nowrap"
                       style={brand.style}
                     >
                       {brand.name}
@@ -558,6 +541,68 @@ export default function App() {
                 </div>
               </div>
             </div>
+
+            {/* Right Graphics Column - The Real-time Hyperlocal Operations Visualization */}
+            <div className="relative w-full lg:w-1/2 h-[340px] lg:h-full flex items-center justify-center">
+              <div className="absolute inset-0 bg-radial-gradient from-gray-200/50 to-transparent filter blur-2xl rounded-full opacity-60"></div>
+              
+              {/* Dynamic Dispatch Card Network UI */}
+              <div className="relative w-full max-w-sm space-y-4">
+                
+                {/* Floating Active Job Status Card 1 */}
+                <div className="float-card-1 bg-white border border-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl p-5 flex items-start gap-4 relative z-20">
+                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                    <Zap className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-0.5">
+                      <h4 className="text-sm font-semibold text-black truncate">Electrical Maintenance</h4>
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 flex items-center gap-1">
+                        <Radio className="w-2 h-2 text-amber-500 pulse-soft" /> En Route
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-400">Hub: Indiranagar Sector-4</p>
+                    <div className="w-full bg-gray-100 h-1 rounded-full mt-3 overflow-hidden">
+                      <div className="bg-amber-500 h-full w-2/3 rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Active Job Status Card 2 */}
+                <div className="float-card-2 bg-white border border-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl p-5 flex items-start gap-4 relative z-10 translate-x-4">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <Droplets className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-0.5">
+                      <h4 className="text-sm font-semibold text-black truncate">Hyperlocal Plumbing</h4>
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 flex items-center gap-1">
+                        <CheckCircle2 className="w-2 h-2 text-emerald-500" /> Resolved
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-400">Partner: Vinay Kumar (Verified)</p>
+                    <p className="text-[11px] text-gray-500 mt-2 italic">“Main pipeline leakage plugged within 22 minutes.”</p>
+                  </div>
+                </div>
+
+                {/* Floating Active Job Status Card 3 */}
+                <div className="float-card-3 bg-white border border-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl p-5 flex items-start gap-4 relative z-0 -translate-x-2">
+                  <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+                    <Activity className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-0.5">
+                      <h4 className="text-sm font-semibold text-black truncate">Ecosystem Engine Monitoring</h4>
+                    </div>
+                    <p className="text-xs text-gray-500 flex items-center gap-1.5 mt-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 142 Active Technicians Nearby
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
         </section>
       </div>
@@ -598,7 +643,6 @@ export default function App() {
       {/* 3. Why Haven Section */}
       <section id="why-haven" className="bg-[#F5F5F5] px-6 py-24 w-full border-t border-black/5">
         <div className="max-w-[88rem] mx-auto">
-          {/* Row 1 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 items-start">
             <div>
               <h2 
@@ -624,7 +668,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Row 2 - Grid Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div 
               className="lg:col-span-2 rounded-2xl p-7 min-h-[20rem] flex flex-col justify-between"
@@ -666,12 +709,12 @@ export default function App() {
         </div>
       </section>
 
-      {/* 4. Ecosystem & Subscriptions Section */}
+      {/* 4. Ecosystem & Subscriptions Section (Replaced secondary Coin Video with dark command interface) */}
       <section id="ecosystem" className="bg-[#F5F5F5] px-6 py-24 w-full">
-        <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
           {/* Left Column */}
-          <div className="md:pr-12 md:pt-2">
+          <div className="md:pr-12 flex flex-col justify-center py-4">
             <span className="block text-black/60 text-sm mb-2 font-semibold tracking-wider uppercase">Subscription Ecosystem</span>
             <h2 
               className="text-black text-5xl md:text-6xl font-medium leading-none mb-6"
@@ -696,35 +739,47 @@ export default function App() {
             </ul>
           </div>
 
-          {/* Right Column (Video) */}
-          <div className="relative rounded-3xl overflow-hidden min-h-[500px] md:min-h-[720px] w-full shadow-lg">
-            <video 
-              autoPlay 
-              muted 
-              loop 
-              playsInline 
-              className="object-cover absolute inset-0 w-full h-full"
-              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_183428_ab5e672a-f608-4dcb-b319-f3e040f02e2d.mp4"
-            />
+          {/* Right Column - Premium High-Velocity Emergency Operator Dashboard Box */}
+          <div className="relative rounded-3xl bg-black text-white p-8 md:p-12 flex flex-col justify-between overflow-hidden shadow-lg min-h-[440px]">
+            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, #FFF 1.5px, transparent 1.5px)', backgroundSize: '20px 20px' }}></div>
             
-            <div className="relative z-10 p-8 md:p-12 flex flex-col h-full justify-start items-start bg-gradient-to-b from-white/40 to-transparent">
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 text-rose-400 text-xs font-bold tracking-widest uppercase mb-6 bg-rose-500/10 px-3 py-1 rounded-full w-max border border-rose-500/20">
+                <Shield className="w-3 h-3 text-rose-500 pulse-soft" /> Hyperlocal Priority Desk
+              </div>
               <h3 
-                className="text-black text-3xl md:text-5xl font-medium leading-tight mb-5"
+                className="text-white text-3xl md:text-4xl font-medium leading-tight mb-4"
                 style={{ letterSpacing: '-0.03em' }}
               >
                 Emergency Services
               </h3>
-              <p className="text-black/80 text-base md:text-lg max-w-md mb-8 font-medium">
-                Rapid hyperlocal support during critical situations. Get immediate help for pipe leakage support, night-time electrical issues, and emergency AC malfunction support.
+              <p className="text-gray-400 text-sm md:text-base max-w-md leading-relaxed">
+                Critical systems down? Get automated routing during home emergencies. Our custom hub locks in quick-response technicians for pipe ruptures, hazardous wiring shorts, or total cooling unit failure.
               </p>
-              
+            </div>
+            
+            {/* Real-time Status tickers */}
+            <div className="relative z-10 grid grid-cols-2 gap-4 bg-white/[0.03] border border-white/5 rounded-2xl p-4 my-6">
+              <div>
+                <span className="text-[10px] uppercase font-bold tracking-wider text-gray-500 block">Avg Response Speed</span>
+                <span className="text-xl font-bold tracking-tight text-white mt-0.5 block">18.4 Minutes</span>
+              </div>
+              <div>
+                <span className="text-[10px] uppercase font-bold tracking-wider text-gray-500 block">Hub Dispatch Status</span>
+                <span className="text-xl font-bold tracking-tight text-emerald-400 mt-0.5 block flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block pulse-soft"></span> Operational
+                </span>
+              </div>
+            </div>
+            
+            <div className="relative z-10 pt-4">
               <button 
                 onClick={() => handleServiceClick('Emergency Support')}
-                className="inline-flex items-center gap-3 text-black font-medium group bg-white/40 backdrop-blur-md px-6 py-3 rounded-full hover:bg-white/60 transition-colors duration-200"
+                className="inline-flex items-center gap-3 text-black font-semibold group bg-white px-6 py-3 rounded-full hover:bg-gray-100 transition-colors duration-200 w-full sm:w-auto justify-center sm:justify-start"
               >
                 Request Emergency Help
-                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                  <ArrowRight className="w-4 h-4 text-black" />
+                <div className="w-6 h-6 rounded-full bg-black flex items-center justify-center">
+                  <ArrowRight className="w-3.5 h-3.5 text-white" />
                 </div>
               </button>
             </div>
@@ -765,7 +820,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Fixed Target Recruitment Box Banner */}
           <div className="mt-12 bg-black text-white rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
             <div>
               <h3 className="text-2xl md:text-3xl font-medium tracking-tight mb-3">Grow Your Earnings as a Haven Partner</h3>
