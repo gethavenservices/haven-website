@@ -116,9 +116,6 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // -------------------------------------------------------------
-  // PARTNER REGISTRATION PAGE
-  // -------------------------------------------------------------
   if (isPartnerMode) {
     return (
       <div className="bg-[#F5F5F5] min-h-screen text-black flex flex-col font-sans">
@@ -144,8 +141,6 @@ export default function App() {
                 <p className="text-gray-500 text-sm mt-2">Earn more with regular work, fast digital payouts, and professional recognition. Submit your profile below.</p>
               </div>
               <form onSubmit={handlePartnerSubmit} className="space-y-6">
-                
-                {/* Fully Restored Partner Form Fields */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
@@ -201,9 +196,6 @@ export default function App() {
     );
   }
 
-  // -------------------------------------------------------------
-  // SERVICE BOOKING PAGE
-  // -------------------------------------------------------------
   if (selectedService) {
     return (
       <div className="bg-[#F5F5F5] min-h-screen text-black flex flex-col font-sans">
@@ -228,8 +220,6 @@ export default function App() {
                 <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-2">Request {selectedService} Expert</h2>
               </div>
               <form onSubmit={handleFormSubmit} className="space-y-6">
-                
-                {/* Fully Restored Booking Form Fields */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
@@ -281,9 +271,6 @@ export default function App() {
     );
   }
 
-  // -------------------------------------------------------------
-  // MAIN LANDING PAGE
-  // -------------------------------------------------------------
   return (
     <main className="flex flex-col bg-[#F5F5F5] min-h-screen">
       
@@ -293,10 +280,6 @@ export default function App() {
         @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
         .backers-track { display: flex; width: max-content; animation: backers-marquee 30s linear infinite; }
         @keyframes backers-marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
-        
-        /* Smooth float loops for premium tool graphics overlays */
-        @keyframes subtle-float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-8px) rotate(2deg); } }
-        .ambient-tool-float { animation: subtle-float 6s ease-in-out infinite; }
       `}} />
 
       {/* 1. Navbar & Hero Section Wrapper */}
@@ -336,13 +319,27 @@ export default function App() {
           </div>
         </nav>
 
-        {/* Hero Section (Restored Pinkish-Violet Theme + Fixed Reliable Video) */}
+        {/* Hero Section (Full-Width High-Quality Video Background + Pristine Readability Overlay) */}
         <section id="home" className="flex-1 px-6 pt-28 lg:pt-20 pb-6 flex items-center w-full">
-          <div className="relative w-full h-full rounded-3xl bg-gradient-to-tr from-[#FDF2F8] via-[#F4EFFF] to-[#F5F3FF] border border-purple-100/50 flex flex-col lg:flex-row justify-between items-center shadow-sm overflow-hidden">
+          <div className="relative w-full h-full min-h-[580px] lg:h-[calc(100vh-96px)] rounded-3xl flex flex-col justify-center items-start shadow-sm overflow-hidden border border-purple-100/40">
             
-            {/* Left Content Column */}
-            <div className="relative z-20 flex flex-col items-start w-full lg:w-[55%] p-8 md:p-12">
-              <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/60 border border-purple-200/50 text-purple-900 font-semibold text-xs tracking-wide mb-8 shadow-sm backdrop-blur-sm">
+            {/* FULL COMPREHENSIVE BACKGROUND VIDEO - Renders crystal clear across left and right space */}
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover z-0 object-center"
+            >
+              <source src="https://videos.pexels.com/video-files/6417912/6417912-uhd_2160_3840_25fps.mp4" type="video/mp4" />
+            </video>
+
+            {/* RADIENT GRADIENT MASK WALL - Perfect light pink/violet theme mix on the left for text contrast, fading out entirely to expose video on right side */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#F4EFFF] via-[#F4EFFF]/85 md:via-[#F4EFFF]/75 to-transparent z-10 pointer-events-none"></div>
+
+            {/* Left Content Block - Lifted safely above full video layer via z-20 */}
+            <div className="relative z-20 flex flex-col items-start max-w-xl p-8 md:p-12 lg:ml-6">
+              <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/70 border border-purple-200/50 text-purple-900 font-semibold text-xs tracking-wide mb-8 shadow-sm backdrop-blur-sm">
                 Coming soon to your neighbourhood
               </span>
               
@@ -369,14 +366,14 @@ export default function App() {
                 </a>
                 <button 
                   onClick={handlePartnerClick}
-                  className="w-full sm:w-auto bg-white/70 backdrop-blur-md text-black border border-purple-100 text-sm font-medium px-7 py-3 rounded-full hover:bg-white transition-colors duration-200 shadow-sm"
+                  className="w-full sm:w-auto bg-white/80 backdrop-blur-md text-black border border-purple-100/50 text-sm font-medium px-7 py-3 rounded-full hover:bg-white transition-colors duration-200 shadow-sm"
                 >
                   Join as Partner
                 </button>
               </div>
 
-              {/* Infinite Marquee text background layer */}
-              <div className="mt-12 lg:mt-20 w-full overflow-hidden opacity-[0.35]">
+              {/* Infinite Marquee layer text */}
+              <div className="mt-12 lg:mt-16 w-full overflow-hidden opacity-[0.4]">
                 <div className="marquee-track">
                   {[...serviceMarquee, ...serviceMarquee].map((brand, idx) => (
                     <span key={idx} className="mx-6 shrink-0 text-purple-950 whitespace-nowrap" style={brand.style}>
@@ -385,48 +382,6 @@ export default function App() {
                   ))}
                 </div>
               </div>
-            </div>
-
-            {/* Right Media Section - Fixed Video Source and Layout */}
-            <div className="absolute inset-y-0 right-0 w-full lg:w-[50%] h-full z-0 hidden lg:flex items-center justify-center">
-              
-              {/* Fade Gradient to seamlessly blend left UI color into right video */}
-              <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#F4EFFF] to-transparent z-10 pointer-events-none"></div>
-
-              {/* Reliable Pexels Video Source with poster fallback */}
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-                poster="https://images.pexels.com/photos/8470875/pexels-photo-8470875.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                className="w-full h-full object-cover object-center z-0"
-              >
-                <source src="https://videos.pexels.com/video-files/4482937/4482937-uhd_2560_1440_25fps.mp4" type="video/mp4" />
-                <source src="https://videos.pexels.com/video-files/8470875/8470875-uhd_2160_4096_25fps.mp4" type="video/mp4" />
-              </video>
-
-              {/* Floating Aesthetic Blueprint Equipment Indicators */}
-              <div className="absolute top-[28%] right-[15%] ambient-tool-float bg-white/90 backdrop-blur-xl border border-white/40 rounded-2xl p-3 flex items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] z-20">
-                <div className="p-2 bg-purple-100 text-purple-700 rounded-xl">
-                  <Wrench className="w-4 h-4" />
-                </div>
-                <div className="text-left pr-2">
-                  <p className="text-[11px] font-bold text-black uppercase tracking-wider">Calibrating</p>
-                  <p className="text-xs text-gray-500 font-medium">System Alignment</p>
-                </div>
-              </div>
-
-              <div className="absolute bottom-[20%] right-[42%] ambient-tool-float bg-white/90 backdrop-blur-xl border border-white/40 rounded-2xl p-3 flex items-center gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] z-20" style={{ animationDelay: '1.5s' }}>
-                <div className="p-2 bg-amber-50 text-amber-600 rounded-xl">
-                  <Settings className="w-4 h-4" />
-                </div>
-                <div className="text-left pr-2">
-                  <p className="text-[11px] font-bold text-black uppercase tracking-wider">Resolution Engine</p>
-                  <p className="text-xs text-gray-500 font-medium">Precision Tuning</p>
-                </div>
-              </div>
-
             </div>
 
           </div>
