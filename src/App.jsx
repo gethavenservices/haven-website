@@ -56,25 +56,7 @@ export default function App() {
   const [isPartnerMode, setIsPartnerMode] = useState(false);
   const [partnerStep, setPartnerStep] = useState('form'); 
   
-  // Ref to target the video element directly
-  const videoRef = useRef(null);
-
-  const [formData, setFormData] = useState({
-    name: '', phone: '', address: '', date: '', timeSlot: 'Morning (9 AM - 12 PM)', notes: ''
-  });
-
-  const [partnerData, setPartnerData] = useState({
-    name: '', phone: '', trade: 'Electrical', experience: '1-3 Years', location: ''
-  });
-
-  // Force video playback on mount to bypass strict browser autoplay policies
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(error => {
-        console.warn("Autoplay was prevented by the browser:", error);
-      });
-    }
-  }, []);
+ }, []);
 
   const handleInputChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   const handlePartnerInputChange = (e) => setPartnerData(prev => ({ ...prev, [e.target.name]: e.target.value }));
