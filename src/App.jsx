@@ -317,16 +317,15 @@ export default function App() {
             {/* FIXED VIDEO SECTION: Attached to your ref, and placed strictly in the background 
             */}
             <video 
-             ref={videoPlayerRef}
-             src="https://your-hosting-domain.com/background-video.mp4" 
-             autoPlay 
-             loop 
-             muted 
-             playsInline
-             className="absolute inset-0 w-full h-full object-cover z-0"
-             />
-
-           <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none"></div>
+            ref={videoPlayerRef}
+            src="https://assets.mixkit.co/videos/preview/mixkit-handyman-with-a-tool-belt-working-41712-large.mp4" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            />
+            <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none"></div>
             <div className="relative z-20 flex flex-col items-start max-w-xl p-8 md:p-12 lg:ml-6">
               <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white border border-gray-200 text-gray-900 font-semibold text-xs tracking-wide mb-8 shadow-sm">
                 Coming soon to your neighbourhood
