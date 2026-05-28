@@ -765,7 +765,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* New Dynamic Callout Banner Box for Recruits */}
+          {/* Fixed Target Recruitment Box Banner */}
           <div className="mt-12 bg-black text-white rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
             <div>
               <h3 className="text-2xl md:text-3xl font-medium tracking-tight mb-3">Grow Your Earnings as a Haven Partner</h3>
@@ -774,7 +774,7 @@ export default function App() {
               </p>
             </div>
             <button 
-              onClick={handlePartnerMode ? handleBackToHome : handlePartnerClick}
+              onClick={handlePartnerClick}
               className="shrink-0 bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-gray-200 transition-colors inline-flex items-center gap-2 text-sm md:text-base shadow-sm"
             >
               Apply as Partner <ArrowRight className="w-4 h-4" />
