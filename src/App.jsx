@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   ArrowRight, Menu, X, Wrench, Zap, Hammer, PaintRoller, 
   Sparkles, Fan, Settings, Droplets, CheckCircle2, 
@@ -56,6 +56,9 @@ export default function App() {
   const [isPartnerMode, setIsPartnerMode] = useState(false);
   const [partnerStep, setPartnerStep] = useState('form'); 
 
+  // Create a direct DOM reference for the video player
+  const videoPlayerRef = useRef(null);
+
   const [formData, setFormData] = useState({
     name: '', phone: '', address: '', date: '', timeSlot: 'Morning (9 AM - 12 PM)', notes: ''
   });
@@ -63,6 +66,29 @@ export default function App() {
   const [partnerData, setPartnerData] = useState({
     name: '', phone: '', trade: 'Electrical', experience: '1-3 Years', location: ''
   });
+
+  // BULLETPROOF AUTOPLAY EXECUTION BLOCK
+  useEffect(() => {
+    const runAutoplayHandshake = () => {
+      const videoNode = videoPlayerRef.current;
+      if (videoNode) {
+        // Force the absolute lowest level DOM mutations required by strict browser rules
+        videoNode.hasAttribute('muted') || videoNode.setAttribute('muted', 'true');
+        videoNode.defaultMuted = true;
+        videoNode.muted = true;
+        
+        // Execute playback request asynchronously to dodge the browser race conditions
+        const playPromise = videoNode.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.warn("Autoplay initialization fell back to manual trigger stream:", error);
+          });
+        }
+      }
+    };
+
+    runAutoplayHandshake();
+  }, []);
 
   const handleInputChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   const handlePartnerInputChange = (e) => setPartnerData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -292,25 +318,16 @@ export default function App() {
         <section id="home" className="flex-1 px-6 pt-28 lg:pt-20 pb-6 flex items-center w-full">
           <div className="relative w-full h-full min-h-[580px] lg:h-[calc(100vh-96px)] rounded-3xl flex flex-col justify-center items-start shadow-sm overflow-hidden bg-[#EAE8F0] border border-black/5">
             
-            {/* 
-              THE NUCLEAR FIX: Bypassing React's DOM rendering entirely.
-              This injects raw HTML to guarantee the browser registers 'muted', 
-              'autoplay', and 'playsinline' simultaneously, bypassing strict autoplay blocks. 
-            */}
-            <div 
-              className="absolute inset-0 w-full h-full z-0 pointer-events-none"
-              dangerouslySetInnerHTML={{ __html: `
-                <video 
-                  autoplay 
-                  loop 
-                  muted 
-                  playsinline
-                  poster="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop"
-                  style="width: 100%; height: 100%; object-fit: cover; object-position: center;"
-                >
-                  <source src="https://assets.mixkit.co/videos/preview/mixkit-electrician-working-on-a-switchboard-42283-large.mp4" type="video/mp4" />
-                </video>
-              `}}
+            {/* Native player tracking combined with clean attribute alignment */}
+            <video 
+              ref={videoPlayerRef}
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054e7d9830da42323f46f4eb1d46c82&profile_id=139&oauth2_token_id=57447761"
+              poster="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop"
+              className="absolute inset-0 w-full h-full object-cover z-0 object-center"
             />
 
             <div className="absolute inset-0 bg-gradient-to-r from-[#F5F5F5] via-[#F5F5F5]/95 md:via-[#F5F5F5]/70 to-transparent z-10 pointer-events-none"></div>
