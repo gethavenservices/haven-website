@@ -317,31 +317,30 @@ export default function App() {
             {/* FIXED VIDEO SECTION: Attached to your ref, and placed strictly in the background 
             */}
             <video 
-              ref={videoPlayerRef}
-              src="/background-video.mp4" 
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover z-0"
-            />
+             ref={videoPlayerRef}
+             src="https://your-hosting-domain.com/background-video.mp4" 
+             autoPlay 
+             loop 
+             muted 
+             playsInline
+             className="absolute inset-0 w-full h-full object-cover z-0"
+             />
 
-            <div className="absolute inset-0 bg-gradient-to-r from-[#F5F5F5] via-[#F5F5F5]/95 md:via-[#F5F5F5]/70 to-transparent z-10 pointer-events-none"></div>
-
+           <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none"></div>
             <div className="relative z-20 flex flex-col items-start max-w-xl p-8 md:p-12 lg:ml-6">
               <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white border border-gray-200 text-gray-900 font-semibold text-xs tracking-wide mb-8 shadow-sm">
                 Coming soon to your neighbourhood
               </span>
               
               <h1 
-                className="text-black text-4xl md:text-5xl lg:text-[3.5rem] font-medium leading-[1.12] mb-6 text-left"
-                style={{ letterSpacing: '-0.04em' }}
+              className="text-white text-4xl md:text-5xl lg:text-[3.5rem] font-medium leading-[1.12] mb-6 text-left"
+              style={{ letterSpacing: '-0.04em' }}
               >
-                Haven — India’s<br />Trusted<br />Skilled-Service<br />Ecosystem
+              Haven — India’s<br />Trusted<br />Skilled-Service<br />Ecosystem
               </h1>
-              
-              <p className="text-gray-800 text-sm md:text-base mb-8 leading-relaxed text-left max-w-md font-medium">
-                Connecting households with trusted skilled professionals through technology, reliability, and hyperlocal services.
+
+              <p className="text-white/80 text-sm md:text-base mb-8 leading-relaxed text-left max-w-md font-medium">
+              Connecting households with trusted skilled professionals through technology, reliability, and hyperlocal services.
               </p>
               
               <div className="flex flex-wrap gap-4 w-full sm:w-auto">
