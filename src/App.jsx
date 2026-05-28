@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { 
   ArrowRight, Menu, X, Wrench, Zap, Hammer, PaintRoller, 
   Sparkles, Fan, Settings, Droplets, CheckCircle2, 
@@ -55,8 +55,14 @@ export default function App() {
   const [bookingStep, setBookingStep] = useState('form'); 
   const [isPartnerMode, setIsPartnerMode] = useState(false);
   const [partnerStep, setPartnerStep] = useState('form'); 
-  
- };
+
+  const [formData, setFormData] = useState({
+    name: '', phone: '', address: '', date: '', timeSlot: 'Morning (9 AM - 12 PM)', notes: ''
+  });
+
+  const [partnerData, setPartnerData] = useState({
+    name: '', phone: '', trade: 'Electrical', experience: '1-3 Years', location: ''
+  });
 
   const handleInputChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   const handlePartnerInputChange = (e) => setPartnerData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -286,7 +292,7 @@ export default function App() {
         <section id="home" className="flex-1 px-6 pt-28 lg:pt-20 pb-6 flex items-center w-full">
           <div className="relative w-full h-full min-h-[580px] lg:h-[calc(100vh-96px)] rounded-3xl flex flex-col justify-center items-start shadow-sm overflow-hidden bg-[#EAE8F0] border border-black/5">
             
-          {/* 
+            {/* 
               THE NUCLEAR FIX: Bypassing React's DOM rendering entirely.
               This injects raw HTML to guarantee the browser registers 'muted', 
               'autoplay', and 'playsinline' simultaneously, bypassing strict autoplay blocks. 
@@ -306,6 +312,7 @@ export default function App() {
                 </video>
               `}}
             />
+
             <div className="absolute inset-0 bg-gradient-to-r from-[#F5F5F5] via-[#F5F5F5]/95 md:via-[#F5F5F5]/70 to-transparent z-10 pointer-events-none"></div>
 
             <div className="relative z-20 flex flex-col items-start max-w-xl p-8 md:p-12 lg:ml-6">
