@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Menu, X, Wrench, Zap, Hammer, PaintRoller, Sparkles, Fan, Settings, Droplets } from 'lucide-react';
-
+import { ArrowRight, Menu, X, Wrench, Zap, Hammer, PaintRoller, Sparkles, Fan, Settings, Droplets, CheckCircle2 } from 'lucide-react';
 const LogoIcon = ({ className }) => (
   <svg 
     viewBox="0 0 24 24" 
