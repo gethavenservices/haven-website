@@ -466,7 +466,7 @@ export default function App() {
       `}} />
 
       {/* 1. Navbar & Hero Section Wrapper */}
-      <div className="h-screen flex flex-col overflow-hidden w-full max-w-[88rem] mx-auto relative">
+      <div className="h-screen flex flex-col overflow-y-auto w-full max-w-[88rem] mx-auto relative">
         
         {/* Navbar */}
         <nav className="absolute top-0 left-0 right-0 z-50 px-6 py-5">
@@ -550,7 +550,7 @@ export default function App() {
         {/* Hero Content */}
         <section id="home" className="flex-1 px-6 pt-20 pb-6 flex items-end w-full">
           <div 
-            className="relative w-full rounded-2xl overflow-hidden" 
+            className="relative w-full rounded-2xl overflow-y-auto" 
             style={{ height: 'calc(100vh - 96px)' }}
           >
             <video 
@@ -597,7 +597,7 @@ export default function App() {
               </div>
 
               {/* Hero Marquee */}
-              <div className="mt-auto md:mt-24 w-full max-w-md overflow-hidden mask-fade-edges">
+              <div className="mt-auto md:mt-24 w-full max-w-md overflow-y-auto mask-fade-edges">
                 <div className="marquee-track pt-12 md:pt-0">
                   {[...serviceMarquee, ...serviceMarquee].map((brand, idx) => (
                     <span 
