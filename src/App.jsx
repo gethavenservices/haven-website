@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
 import { 
   ArrowRight, Menu, X, Wrench, Zap, Hammer, PaintRoller, 
   Sparkles, Fan, Settings, Droplets, CheckCircle2, 
@@ -269,7 +270,7 @@ export default function App() {
   }
 
   /* =========================================================================
-     VIEW MODE 2: CUSTOMER BOOKING ENGINE SCREEN
+     VIEW MODE 2: CUSTOMER BOOKING ENGINE SCREEN (PROTECTED)
      ========================================================================= */
   if (selectedService) {
     return (
@@ -291,104 +292,135 @@ export default function App() {
         {/* Dynamic Booking Content Window */}
         <div className="flex-1 max-w-3xl w-full mx-auto px-6 py-12">
           {bookingStep === 'form' ? (
-            <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm">
-              <div className="mb-8">
-                <span className="text-sm font-bold tracking-wider uppercase text-gray-400">Booking Form</span>
-                <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-2">
-                  Request {selectedService} Expert
-                </h2>
-                <p className="text-gray-500 text-sm mt-2">
-                  Fill in your details to connect with a verified professional near you.
-                </p>
-              </div>
-
-              <form onSubmit={handleFormSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Your Name</label>
-                    <div className="relative">
-                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                      <input 
-                        type="text" required name="name" value={formData.name} onChange={handleInputChange}
-                        placeholder="John Doe" 
-                        className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all"
-                      />
-                    </div>
+            <>
+              {/* IF SIGNED IN: Show the beautiful original form layout */}
+              <SignedIn>
+                <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm">
+                  <div className="mb-8">
+                    <span className="text-sm font-bold tracking-wider uppercase text-gray-400">Booking Form</span>
+                    <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-2">
+                      Request {selectedService} Expert
+                    </h2>
+                    <p className="text-gray-500 text-sm mt-2">
+                      Fill in your details to connect with a verified professional near you.
+                    </p>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Phone Number</label>
-                    <div className="relative">
-                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                      <input 
-                        type="tel" required name="phone" value={formData.phone} onChange={handleInputChange}
-                        placeholder="Contact number" 
-                        className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all"
-                      />
+                  <form onSubmit={handleFormSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Your Name</label>
+                        <div className="relative">
+                          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                          <input 
+                            type="text" required name="name" value={formData.name} onChange={handleInputChange}
+                            placeholder="John Doe" 
+                            className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Phone Number</label>
+                        <div className="relative">
+                          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                          <input 
+                            type="tel" required name="phone" value={formData.phone} onChange={handleInputChange}
+                            placeholder="Contact number" 
+                            className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all"
+                          />
+                        </div>
+                      </div>
                     </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Service Address</label>
+                      <div className="relative">
+                        <MapPin className="absolute left-4 top-4 w-4 h-4 text-gray-400" />
+                        <textarea 
+                          required rows="3" name="address" value={formData.address} onChange={handleInputChange}
+                          placeholder="Street name, Building number, Apartment, Landmark..." 
+                          className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all resize-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Preferred Date</label>
+                        <div className="relative">
+                          <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                          <input 
+                            type="date" required name="date" value={formData.date} onChange={handleInputChange}
+                            className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Time Slot</label>
+                        <div className="relative">
+                          <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                          <select 
+                            name="timeSlot" value={formData.timeSlot} onChange={handleInputChange}
+                            className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all appearance-none"
+                          >
+                            <option>Morning (9 AM - 12 PM)</option>
+                            <option>Afternoon (12 PM - 4 PM)</option>
+                            <option>Evening (4 PM - 7 PM)</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Job Description (Optional)</label>
+                      <div className="relative">
+                        <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-gray-400" />
+                        <textarea 
+                          rows="3" name="notes" value={formData.notes} onChange={handleInputChange}
+                          placeholder="Briefly describe the repair or maintenance requirement..." 
+                          className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all resize-none"
+                        />
+                      </div>
+                    </div>
+
+                    <button 
+                      type="submit"
+                      className="w-full bg-black text-white py-4 rounded-2xl font-medium text-base hover:bg-gray-800 transition-colors shadow-sm mt-4 flex items-center justify-center gap-2"
+                    >
+                      Confirm Appointment Request <ArrowRight className="w-5 h-5" />
+                    </button>
+                  </form>
+                </div>
+              </SignedIn>
+
+              {/* IF SIGNED OUT: Require login to view booking engine */}
+              <SignedOut>
+                <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm text-center flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-full bg-black/5 text-black flex items-center justify-center mb-6">
+                    <User className="w-7 h-7" />
+                  </div>
+                  <h2 className="text-3xl font-medium text-black tracking-tight mb-2">Verification Required</h2>
+                  <p className="text-gray-500 text-sm max-w-md mb-8 leading-relaxed">
+                    To maintain ecosystem trust, safety, and priority fulfillment, you must sign in or create an account before requesting a skilled expert.
+                  </p>
+                  
+                  <div className="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-sm">
+                    <SignInButton mode="modal">
+                      <button className="w-full bg-black text-white text-sm font-medium px-8 py-3 rounded-xl hover:bg-gray-800 transition-colors">
+                        Log In
+                      </button>
+                    </SignInButton>
+                    <SignUpButton mode="modal">
+                      <button className="w-full bg-white text-black border border-black/15 text-sm font-medium px-8 py-3 rounded-xl hover:bg-gray-50 transition-colors shadow-sm">
+                        Create Account
+                      </button>
+                    </SignUpButton>
                   </div>
                 </div>
-
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Service Address</label>
-                  <div className="relative">
-                    <MapPin className="absolute left-4 top-4 w-4 h-4 text-gray-400" />
-                    <textarea 
-                      required rows="3" name="address" value={formData.address} onChange={handleInputChange}
-                      placeholder="Street name, Building number, Apartment, Landmark..." 
-                      className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all resize-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Preferred Date</label>
-                    <div className="relative">
-                      <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                      <input 
-                        type="date" required name="date" value={formData.date} onChange={handleInputChange}
-                        className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Time Slot</label>
-                    <div className="relative">
-                      <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                      <select 
-                        name="timeSlot" value={formData.timeSlot} onChange={handleInputChange}
-                        className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all appearance-none"
-                      >
-                        <option>Morning (9 AM - 12 PM)</option>
-                        <option>Afternoon (12 PM - 4 PM)</option>
-                        <option>Evening (4 PM - 7 PM)</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Job Description (Optional)</label>
-                  <div className="relative">
-                    <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-gray-400" />
-                    <textarea 
-                      rows="3" name="notes" value={formData.notes} onChange={handleInputChange}
-                      placeholder="Briefly describe the repair or maintenance requirement..." 
-                      className="w-full bg-[#F5F5F5] border border-transparent rounded-2xl pl-12 pr-4 py-3.5 text-sm font-medium focus:outline-none focus:bg-white focus:border-black transition-all resize-none"
-                    />
-                  </div>
-                </div>
-
-                <button 
-                  type="submit"
-                  className="w-full bg-black text-white py-4 rounded-2xl font-medium text-base hover:bg-gray-800 transition-colors shadow-sm mt-4 flex items-center justify-center gap-2"
-                >
-                  Confirm Appointment Request <ArrowRight className="w-5 h-5" />
-                </button>
-              </form>
-            </div>
+              </SignedOut>
+            </>
           ) : (
             /* Success confirmation screen */
             <div className="bg-white rounded-3xl p-8 md:p-12 border border-black/5 shadow-sm text-center flex flex-col items-center">
@@ -447,24 +479,32 @@ export default function App() {
             {/* Desktop Links */}
             <div className="hidden md:flex items-center gap-8 text-base text-gray-700 font-medium">
               <a href="#services" className="hover:text-black transition-colors duration-200">Services</a>
-              <a href="#why-haven" className="hover:text-black transition-colors duration-200">Why Haven</a>
-              <a href="#ecosystem" className="hover:text-black transition-colors duration-200">Ecosystem</a>
-              <a href="#partnerships" className="hover:text-black transition-colors duration-200">Partnerships</a>
               <button onClick={handlePartnerClick} className="text-gray-700 hover:text-black transition-colors duration-200 font-medium">Become a Partner</button>
             </div>
 
-            <div className="hidden md:flex items-center gap-4">
-              <button 
-                onClick={() => handleServiceClick('General Maintenance')}
-                className="bg-black text-white text-base font-medium px-7 py-2.5 rounded-full hover:bg-gray-800 transition-colors duration-200"
-              >
-                Join Waitlist
-              </button>
+            {/* Premium Auth & Status Header controls */}
+            <div className="hidden md:flex items-center gap-5">
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" appearance={{ elements: { avatarBox: "w-9 h-9 border border-black/10 shadow-sm" } }} />
+              </SignedIn>
+              
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className="text-base font-medium text-gray-700 hover:text-black transition-colors">
+                    Log In
+                  </button>
+                </SignInButton>
+                <SignUpButton mode="modal">
+                  <button className="bg-black text-white text-base font-medium px-6 py-2.5 rounded-full hover:bg-gray-800 transition-colors duration-200 shadow-sm">
+                    Sign Up
+                  </button>
+                </SignUpButton>
+              </SignedOut>
             </div>
 
             {/* Mobile Menu Toggle */}
             <button 
-              className="md:hidden text-black p-2"
+              className="md:hidden text-black p-2 flex items-center"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -473,23 +513,36 @@ export default function App() {
 
           {/* Mobile Dropdown */}
           {isMobileMenuOpen && (
-            <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t border-gray-100 p-6 flex flex-col gap-4 z-50">
+            <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t border-gray-100 p-6 flex flex-col gap-4 z-50 rounded-b-2xl">
               <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-800 hover:text-black">Services</a>
-              <a href="#why-haven" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-800 hover:text-black">Why Haven</a>
-              <a href="#ecosystem" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-800 hover:text-black">Ecosystem</a>
-              <a href="#partnerships" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-800 hover:text-black">Partnerships</a>
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); handlePartnerClick(); }} 
                 className="text-left text-lg font-medium text-gray-800 hover:text-black border-t border-gray-100 pt-3"
               >
                 Become a Partner
               </button>
-              <button 
-                onClick={() => { setIsMobileMenuOpen(false); handleServiceClick('General Maintenance'); }}
-                className="mt-2 bg-black text-white text-base font-medium px-7 py-3 rounded-full hover:bg-gray-800 text-center"
-              >
-                Join Waitlist
-              </button>
+              
+              {/* Mobile Auth Integrations */}
+              <div className="border-t border-gray-100 pt-4 flex flex-col gap-3">
+                <SignedIn>
+                  <div className="flex items-center justify-between bg-gray-50 p-3 rounded-xl">
+                    <span className="text-sm font-medium text-gray-600">Your Account</span>
+                    <UserButton afterSignOutUrl="/" />
+                  </div>
+                </SignedIn>
+                <SignedOut>
+                  <SignInButton mode="modal">
+                    <button onClick={() => setIsMobileMenuOpen(false)} className="w-full bg-gray-100 text-black text-base font-medium py-3 rounded-xl hover:bg-gray-200">
+                      Log In
+                    </button>
+                  </SignInButton>
+                  <SignUpButton mode="modal">
+                    <button onClick={() => setIsMobileMenuOpen(false)} className="w-full bg-black text-white text-base font-medium py-3 rounded-xl hover:bg-gray-800">
+                      Sign Up
+                    </button>
+                  </SignUpButton>
+                </SignedOut>
+              </div>
             </div>
           )}
         </nav>
@@ -570,245 +623,32 @@ export default function App() {
               Our Services
             </h2>
             <p className="text-black/60 text-lg max-w-2xl">
-              From minor fixes to major renovations, access a comprehensive suite of skilled professionals instantly. Click on any card below to launch the booking engine.
+              From minor fixes to major renovations, access a comprehensive ecosystem of trusted, premium, and on-demand technical solutions.
             </p>
           </div>
-          
+
+          {/* Restored Complete Interactive Service Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {servicesList.map((service, index) => (
-              <div 
-                key={index} 
-                onClick={() => handleServiceClick(service.name)}
-                className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer border border-black/5 relative overflow-hidden"
-              >
-                <div className="w-12 h-12 rounded-full bg-[#F5F5F5] flex items-center justify-center mb-6 group-hover:bg-black transition-colors duration-300">
-                  <service.icon className="w-6 h-6 text-black group-hover:text-white transition-colors duration-300" />
+            {servicesList.map((service, index) => {
+              const IconComponent = service.icon;
+              return (
+                <div 
+                  key={index}
+                  onClick={() => handleServiceClick(service.name)}
+                  className="bg-white border border-black/5 rounded-3xl p-8 hover:border-black transition-all cursor-pointer group shadow-sm flex flex-col items-start"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-[#F5F5F5] flex items-center justify-center mb-6 group-hover:bg-black group-hover:text-white transition-all">
+                    <IconComponent className="w-5 h-5 text-black group-hover:text-white transition-all" />
+                  </div>
+                  <h3 className="text-xl font-medium text-black mb-2 tracking-tight">{service.name}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{service.desc}</p>
                 </div>
-                <h3 className="text-xl font-medium text-black mb-2">{service.name}</h3>
-                <p className="text-black/60 text-sm leading-relaxed mb-4">{service.desc}</p>
-                <span className="text-xs font-semibold text-black group-hover:text-gray-500 inline-flex items-center gap-1 transition-colors">
-                  Book Service <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Why Haven Section */}
-      <section id="why-haven" className="bg-[#F5F5F5] px-6 py-24 w-full border-t border-black/5">
-        <div className="max-w-[88rem] mx-auto">
-          {/* Row 1 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 items-start">
-            <div>
-              <h2 
-                className="text-black text-4xl md:text-5xl font-medium leading-tight mb-8"
-                style={{ letterSpacing: '-0.03em' }}
-              >
-                Meet Haven.
-              </h2>
-              <button 
-                onClick={() => handleServiceClick('General Maintenance')}
-                className="inline-flex items-center gap-3 bg-black text-white text-base font-medium pl-8 pr-2 py-2 rounded-full hover:bg-gray-800 transition-colors duration-200 group"
-              >
-                Book Trusted Professionals
-                <div className="bg-white rounded-full p-2">
-                  <ArrowRight className="w-4 h-4 text-black" />
-                </div>
-              </button>
-            </div>
-            <div>
-              <p className="text-black/70 text-2xl md:text-3xl leading-relaxed">
-                A tech-enabled hyperlocal skilled-service ecosystem connecting users with verified professionals like electricians, plumbers, and technicians.
-              </p>
-            </div>
-          </div>
-
-          {/* Row 2 - Grid Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div 
-              className="lg:col-span-2 rounded-2xl p-7 min-h-[20rem] flex flex-col justify-between"
-              style={{
-                backgroundImage: 'url("https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260423_164207_f243351d-ed59-48ec-83a0-a5e996bdbe3c.png&w=1280&q=85")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}
-            >
-              <h3 
-                className="text-black text-2xl font-medium leading-snug"
-                style={{ letterSpacing: '-0.02em' }}
-              >
-                Verified Professionals
-              </h3>
-              <p className="text-black/80 font-medium text-base max-w-xs">
-                Every service provider undergoes rigorous background checks, transparent rating & reviews systems, and skill verification.
-              </p>
-            </div>
-
-            <div className="bg-[#2B2644] rounded-2xl p-7 min-h-[20rem] flex flex-col justify-between">
-              <h3 className="text-white text-2xl font-medium whitespace-pre-line">
-                {"Transparent\nPricing"}
-              </h3>
-              <p className="text-white/60 text-base">
-                No hidden costs. Get upfront estimates for all jobs with a secure booking ecosystem. Read ratings & reviews before you book.
-              </p>
-            </div>
-
-            <div className="bg-[#2B2644] rounded-2xl p-7 min-h-[20rem] flex flex-col justify-between">
-              <h3 className="text-white text-2xl font-medium whitespace-pre-line">
-                {"Fast\nResponse"}
-              </h3>
-              <p className="text-white/60 text-base">
-                Rapid hyperlocal support. Because when a pipe bursts or the power goes out, our hyperlocal quick-response operations ensure you don't wait.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Ecosystem & Subscriptions Section */}
-      <section id="ecosystem" className="bg-[#F5F5F5] px-6 py-24 w-full">
-        <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          
-          {/* Left Column */}
-          <div className="md:pr-12 md:pt-2">
-            <span className="block text-black/60 text-sm mb-2 font-semibold tracking-wider uppercase">Subscription Ecosystem</span>
-            <h2 
-              className="text-black text-5xl md:text-6xl font-medium leading-none mb-6"
-              style={{ letterSpacing: '-0.04em' }}
-            >
-              Smart Home Care
-            </h2>
-            <p className="text-black/60 text-base leading-relaxed max-w-sm mb-8">
-              Haven powers a wide range of subscription-based maintenance modes for households wanting safe and reliable maintenance infrastructure. 
-            </p>
-            
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-center gap-3 text-black/80 font-medium">
-                <CheckCircle2 className="w-5 h-5 text-black" /> Weekly cleaning plans
-              </li>
-              <li className="flex items-center gap-3 text-black/80 font-medium">
-                <CheckCircle2 className="w-5 h-5 text-black" /> Monthly maintenance subscriptions
-              </li>
-              <li className="flex items-center gap-3 text-black/80 font-medium">
-                <CheckCircle2 className="w-5 h-5 text-black" /> Annual AC & Quarterly RO maintenance care
-              </li>
-            </ul>
-          </div>
-
-          {/* Right Column (Video) */}
-          <div className="relative rounded-3xl overflow-hidden min-h-[500px] md:min-h-[720px] w-full shadow-lg">
-            <video 
-              autoPlay 
-              muted 
-              loop 
-              playsInline 
-              className="object-cover absolute inset-0 w-full h-full"
-              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_183428_ab5e672a-f608-4dcb-b319-f3e040f02e2d.mp4"
-            />
-            
-            <div className="relative z-10 p-8 md:p-12 flex flex-col h-full justify-start items-start bg-gradient-to-b from-white/40 to-transparent">
-              <h3 
-                className="text-black text-3xl md:text-5xl font-medium leading-tight mb-5"
-                style={{ letterSpacing: '-0.03em' }}
-              >
-                Emergency Services
-              </h3>
-              <p className="text-black/80 text-base md:text-lg max-w-md mb-8 font-medium">
-                Rapid hyperlocal support during critical situations. Get immediate help for pipe leakage support, night-time electrical issues, and emergency AC malfunction support.
-              </p>
-              
-              <button 
-                onClick={() => handleServiceClick('Emergency Support')}
-                className="inline-flex items-center gap-3 text-black font-medium group bg-white/40 backdrop-blur-md px-6 py-3 rounded-full hover:bg-white/60 transition-colors duration-200"
-              >
-                Request Emergency Help
-                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                  <ArrowRight className="w-4 h-4 text-black" />
-                </div>
-              </button>
-            </div>
+              );
+            })}
           </div>
 
         </div>
       </section>
-
-      {/* 5. Partnerships & Workforce Section */}
-      <section id="partnerships" className="bg-[#F5F5F5] px-6 py-24 w-full border-t border-black/5">
-        <div className="max-w-[88rem] mx-auto">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-black text-4xl md:text-5xl font-medium leading-tight mb-6" style={{ letterSpacing: '-0.03em' }}>
-              Workforce Empowerment & Brand Vision
-            </h2>
-            <p className="text-black/60 text-lg">
-              We focus heavily on skill development, certified career development paths, and regional servicing partnerships with global appliance giants.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-center bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-black/5">
-            <div className="md:col-span-1 text-black/80 font-medium text-lg leading-relaxed whitespace-pre-line border-b md:border-b-0 md:border-r border-black/10 pb-6 md:pb-0 md:pr-6">
-              {"Future partnerships with\nappliance brands & ITIs\nto reduce dependency."}
-            </div>
-            <div className="md:col-span-3 overflow-hidden">
-              <div className="backers-track">
-                {[...backerBrands, ...backerBrands].map((brand, idx) => (
-                  <span 
-                    key={idx} 
-                    className="mx-10 shrink-0 text-black/50 whitespace-nowrap"
-                    style={brand.style}
-                  >
-                    {brand.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Fixed Target Recruitment Box Banner */}
-          <div className="mt-12 bg-black text-white rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-medium tracking-tight mb-3">Grow Your Earnings as a Haven Partner</h3>
-              <p className="text-white/60 text-sm md:text-base max-w-2xl leading-relaxed">
-                Are you an experienced electrician, plumber, technician, or painter? Join India's most trusted skilled-service ecosystem. Get regular hyperlocal bookings, transparent digital payouts, and professional recognition.
-              </p>
-            </div>
-            <button 
-              onClick={handlePartnerClick}
-              className="shrink-0 bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-gray-200 transition-colors inline-flex items-center gap-2 text-sm md:text-base shadow-sm"
-            >
-              Apply as Partner <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-black text-white px-6 py-12 md:py-20 w-full mt-auto">
-        <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
-          <div>
-            <div className="flex items-center gap-3 mb-6">
-              <LogoIcon className="w-8 h-8 text-white" />
-              <span className="text-3xl font-medium tracking-tight">Haven</span>
-            </div>
-            <p className="text-white/60 max-w-sm text-sm leading-relaxed mb-6">
-              India’s Trusted Hyperlocal Skilled-Service Ecosystem. <br/>
-              Connecting households with trusted professionals through technology and reliability.
-            </p>
-          </div>
-          
-          <div className="flex flex-col md:items-end gap-2 text-sm text-white/60">
-            <p>Email: <a href="mailto:gethavenservices@gmail.com" className="text-white hover:underline">gethavenservices@gmail.com</a></p>
-            <p>Domain: <a href="https://gethaven.in" className="text-white hover:underline">gethaven.in</a></p>
-            <p>Instagram: <a href="https://instagram.com/gofor.haven" className="text-white hover:underline">@gofor.haven</a></p>
-            <p>X/Twitter: <a href="https://twitter.com/goforhaven" className="text-white hover:underline">@goforhaven</a></p>
-            <p className="mt-4"><button onClick={handlePartnerClick} className="text-white underline hover:text-gray-300 font-medium">Partner Registration Portal</button></p>
-            <p className="mt-4 text-white/40">© 2026 Haven. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-
     </main>
   );
 }
