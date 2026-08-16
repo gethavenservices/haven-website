@@ -802,6 +802,7 @@ export default function App() {
             <p>Email: <a href="mailto:gethavenservices@gmail.com" className="text-white hover:underline">gethavenservices@gmail.com</a></p>
             <p>Domain: <a href="https://gethaven.in" className="text-white hover:underline">gethaven.in</a></p>
             <p>Instagram: <a href="https://instagram.com/gofor.haven" className="text-white hover:underline">@gofor.haven</a></p>
+            <p>LinkedIn: <a href="www.linkedin.com/in/haven-services" className="text-white hover:underline">@Haven Services</a></p>
             <p>X/Twitter: <a href="https://twitter.com/goforhaven" className="text-white hover:underline">@goforhaven</a></p>
             <p className="mt-4"><button onClick={handlePartnerClick} className="text-white underline hover:text-gray-300 font-medium">Partner Registration Portal</button></p>
             <p className="mt-4 text-white/40">© 2026 Haven. All rights reserved.</p>
