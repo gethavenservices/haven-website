@@ -805,6 +805,7 @@ export default function App() {
             <p>X/Twitter: <a href="https://twitter.com/goforhaven" className="text-white hover:underline">@goforhaven</a></p>
             <p className="mt-4"><button onClick={handlePartnerClick} className="text-white underline hover:text-gray-300 font-medium">Partner Registration Portal</button></p>
             <p className="mt-4 text-white/40">© 2026 Haven. All rights reserved.</p>
+            <p className="mt-4 text-white/40">Founder @Shreyansh</p>
           </div>
         </div>
       </footer>
